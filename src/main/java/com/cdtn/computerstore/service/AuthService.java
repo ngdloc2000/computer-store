@@ -2,8 +2,8 @@ package com.cdtn.computerstore.service;
 
 import com.cdtn.computerstore.dto.auth.request.AuthenticationRequest;
 import com.cdtn.computerstore.dto.auth.response.AuthenticationResponse;
+import com.cdtn.computerstore.dto.base.BaseResponseData;
 import com.cdtn.computerstore.entity.User;
-import com.cdtn.computerstore.exception.StoreException;
 import com.cdtn.computerstore.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,29 +24,35 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()));
+    public BaseResponseData authenticate(AuthenticationRequest request) {
 
-        User user = userRepository.findByUserName(request.getUsername())
-                .orElseThrow(() -> new StoreException("User not found by email: " + request.getUsername()));
+        Optional<User> user = userRepository.findByUserName(request.getUsername());
 
-        String role = userRepository.findUserRoleByUsername(user.getUsername());
+        if (user.isPresent()) {
+            String role = userRepository.findUserRoleByUsername(user.get().getUsername());
 
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role));
-        user.setRole(role);
+            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(role));
+            user.get().setRole(role);
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        String jwtToken = jwtService.createToken(authentication);
-        String jwtRefreshToken = jwtService.refreshToken(authentication);
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            String jwtToken = jwtService.createToken(authentication);
+            String jwtRefreshToken = jwtService.refreshToken(authentication);
 
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .refreshToken(jwtRefreshToken)
-                .userId(user.getId())
-                .build();
+            AuthenticationResponse response = AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .refreshToken(jwtRefreshToken)
+                    .userId(user.get().getId())
+                    .build();
+
+            return new BaseResponseData(200, "Success", response);
+        } else {
+            return new BaseResponseData(500, "User không tồn tại", null);
+        }
+
+
+
+
     }
 }

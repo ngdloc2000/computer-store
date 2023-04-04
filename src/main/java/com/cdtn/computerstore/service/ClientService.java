@@ -2,17 +2,17 @@ package com.cdtn.computerstore.service;
 
 import com.cdtn.computerstore.dto.auth.request.RegistrationForm;
 import com.cdtn.computerstore.dto.base.BaseResponseData;
+import com.cdtn.computerstore.dto.client.response.ClientDetailResponse;
 import com.cdtn.computerstore.entity.Client;
-import com.cdtn.computerstore.entity.Role;
 import com.cdtn.computerstore.entity.User;
-import com.cdtn.computerstore.exception.StoreException;
 import com.cdtn.computerstore.repository.client.ClientRepository;
-import com.cdtn.computerstore.repository.role.RoleRepository;
 import com.cdtn.computerstore.repository.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,6 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -49,5 +48,26 @@ public class ClientService {
         clientRepository.save(client);
 
         return new BaseResponseData(200, "Success", null);
+    }
+
+    public BaseResponseData findByUserId(Long userId) {
+
+        Optional<Client> client = clientRepository.findByUserId(userId);
+
+        if (client.isPresent()) {
+            Optional<User> user = userRepository.findById(userId);
+            ClientDetailResponse response = ClientDetailResponse.builder()
+                    .userId(client.get().getUserId())
+                    .email(user.get().getUsername())
+                    .fullName(client.get().getFullName())
+                    .phoneNumber(client.get().getPhoneNumber())
+                    .address(client.get().getAddress())
+                    .dob(client.get().getDob())
+                    .build();
+
+            return new BaseResponseData(200, "Success", response);
+        }
+
+        return new BaseResponseData(500, "Client không tồn tại", null);
     }
 }

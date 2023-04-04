@@ -4,12 +4,10 @@ import com.cdtn.computerstore.dto.auth.request.RegistrationForm;
 import com.cdtn.computerstore.dto.base.BaseResponseData;
 import com.cdtn.computerstore.service.ClientService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/client")
@@ -18,9 +16,15 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping("/register-account")
-    public ResponseEntity<BaseResponseData> reigisterClient(@RequestBody @Valid RegistrationForm registrationForm) {
+    @PostMapping("/registerAccount")
+    public ResponseEntity<BaseResponseData> registerClient(@RequestBody @Valid RegistrationForm registrationForm) {
 
         return ResponseEntity.ok(clientService.registerClient(registrationForm));
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<BaseResponseData> getInfoClient(@RequestParam @NotNull Long userId) {
+
+        return ResponseEntity.ok(clientService.findByUserId(userId));
     }
 }
