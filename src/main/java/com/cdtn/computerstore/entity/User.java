@@ -20,7 +20,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fullName;
     private String userName;
     private String password;
     //    @ManyToMany
