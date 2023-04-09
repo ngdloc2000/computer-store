@@ -5,8 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
@@ -18,8 +17,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long categoryId;
-    private Integer brand;
     private String name;
+    private String imageMain;
+    private Integer brand;
     private String description;
     private Double price;
     private Double discount;
@@ -27,6 +27,7 @@ public class Product {
     private Integer sold;
     private Integer status;
     private Integer featured;
+    private Integer warranty;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

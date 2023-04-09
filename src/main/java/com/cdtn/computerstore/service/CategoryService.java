@@ -3,7 +3,7 @@ package com.cdtn.computerstore.service;
 import com.cdtn.computerstore.common.Constant;
 import com.cdtn.computerstore.dto.category.request.CategoryCreationForm;
 import com.cdtn.computerstore.entity.Category;
-import com.cdtn.computerstore.enums.category.StatusCategoryEnum;
+import com.cdtn.computerstore.enums.CategoryEnum;
 import com.cdtn.computerstore.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ public class CategoryService {
         Category category = Category.builder()
                 .name(creationForm.getCategoryName())
                 .description(creationForm.getDescription())
-                .status(StatusCategoryEnum.ACTIVE.getValue())
+                .status(CategoryEnum.Status.ACTIVE.getValue())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
