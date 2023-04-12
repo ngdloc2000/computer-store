@@ -61,7 +61,6 @@ public class ProductEnum {
     }
 
     public enum Color {
-        NONE(0, "Không có"),
         RED(1, "Đỏ"),
         WHITE(2, "Trắng"),
         BLACK(3, "Đen"),
@@ -83,7 +82,7 @@ public class ProductEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Color not found with value " + value));
             }
-            throw new StoreException("Color value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {

@@ -1,4 +1,4 @@
-package com.cdtn.computerstore.security;
+package com.cdtn.computerstore.config;
 
 import com.cdtn.computerstore.entity.User;
 import com.cdtn.computerstore.service.JwtService;

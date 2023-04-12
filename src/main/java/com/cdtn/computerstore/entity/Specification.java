@@ -44,9 +44,9 @@ public class Specification {
     private Integer monitorResolution;
     private Integer monitorPanel;
     private String monitorType;
-    private Integer monitorBrightness;
+    private String monitorBrightness;
     private Integer monitorRefreshRate;
-    private Integer monitorResponseTime;
+    private String monitorResponseTime;
     private String hardDiskModel;
     private Integer hardDiskSeries;
     private Integer hardDiskType;
@@ -58,4 +58,8 @@ public class Specification {
     private String keyboardModel;
     private String laptopStorage;
     private String laptopOperatingSystem;
+    private Integer laptopSeries;
+    private String laptopMaxNumberOfStoragePorts;
+    private String laptopConnectionPort;
+    private String laptopOutputPort;
 }

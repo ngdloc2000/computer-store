@@ -38,7 +38,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Mouse type not found with value " + value));
             }
-            throw new StoreException("Mouse type value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -83,7 +83,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Cpu series not found with value " + value));
             }
-            throw new StoreException("Cpu series value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -129,7 +129,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Cpu socket not found with value " + value));
             }
-            throw new StoreException("Cpu socket value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -182,7 +182,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Ram series not found with value " + value));
             }
-            throw new StoreException("Ram series value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -226,7 +226,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Monitor series not found with value " + value));
             }
-            throw new StoreException("Monitor series value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -295,7 +295,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Monitor size not found with value " + value));
             }
-            throw new StoreException("Monitor size value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -345,7 +345,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Monitor resolution not found with value " + value));
             }
-            throw new StoreException("Monitor resolution value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -390,7 +390,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Monitor panel not found with value " + value));
             }
-            throw new StoreException("Monitor panel value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -441,7 +441,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Monitor refresh rate not found with value " + value));
             }
-            throw new StoreException("Monitor refresh rate value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -485,7 +485,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Hard disk series not found with value " + value));
             }
-            throw new StoreException("Hard disk value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -525,7 +525,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Hard disk type not found with value " + value));
             }
-            throw new StoreException("Hard disk type value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -566,7 +566,7 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Hard disk connection type not found with value " + value));
             }
-            throw new StoreException("Hard disk connection type value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -606,11 +606,55 @@ public class SpecificationEnum {
                         .findFirst()
                         .orElseThrow(() -> new StoreException("Hard disk capacity not found with value " + value));
             }
-            throw new StoreException("Hard disk capacity value is null");
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
             return Stream.of(HardDiskCapacity.values())
+                    .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public enum LaptopSeries {
+        NONE(0, "Không có"),
+        ALIENWARE(1, "Alienware"),
+        G_SERIES(2, "G Series"),
+        G_SERIES_GAMING(3, "G Series Gaming"),
+        INSPRIRON(4, "Inspiron"),
+        LATITUDE(5, "Latitude"),
+        VOSTRO(6, "Vostro"),
+        XPS(7, "XPS");
+
+        private final Integer value;
+        private final String name;
+
+        LaptopSeries(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Integer checkValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(LaptopSeries.values())
+                        .map(LaptopSeries::getValue)
+                        .filter(eValue -> eValue.equals(value))
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("Laptop series not found with value " + value));
+            }
+            return null;
+        }
+
+        public static List<SelectOptionResponse> getList() {
+            return Stream.of(LaptopSeries.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }

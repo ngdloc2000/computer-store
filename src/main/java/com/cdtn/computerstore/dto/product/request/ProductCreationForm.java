@@ -15,9 +15,10 @@ public class ProductCreationForm {
     private String imageMain;
     private Integer brand;
     private String description;
-    private Double price;
+    private Long price;
     private Double discount;
     private Integer quantity;
+    @NotNull
     private Integer featured;
     private Integer warranty;
 
@@ -49,9 +50,9 @@ public class ProductCreationForm {
     private Integer monitorResolution;
     private Integer monitorPanel;
     private String monitorType;
-    private Integer monitorBrightness;
+    private String monitorBrightness;
     private Integer monitorRefreshRate;
-    private Integer monitorResponseTime;
+    private String monitorResponseTime;
     private String hardDiskModel;
     private Integer hardDiskSeries;
     private Integer hardDiskType;
@@ -63,4 +64,8 @@ public class ProductCreationForm {
     private String keyboardModel;
     private String laptopStorage;
     private String laptopOperatingSystem;
+    private Integer laptopSeries;
+    private String laptopMaxNumberOfStoragePorts;
+    private String laptopConnectionPort;
+    private String laptopOutputPort;
 }

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpecificationMapper {
 
-    public Specification createSpecification(ProductCreationForm form) {
+    public Specification createSpecification(Long productId, ProductCreationForm form) {
 
         return Specification.builder()
-                .productId(form.getProductId())
+                .productId(productId)
                 .color(ProductEnum.Color.checkValue(form.getColor()))
                 .sizeDescription(form.getSizeDescription())
                 .battery(form.getBattery())
@@ -52,6 +52,10 @@ public class SpecificationMapper {
                 .keyboardModel(form.getKeyboardModel())
                 .laptopStorage(form.getLaptopStorage())
                 .laptopOperatingSystem(form.getLaptopOperatingSystem())
+                .laptopSeries(SpecificationEnum.LaptopSeries.checkValue(form.getLaptopSeries()))
+                .laptopMaxNumberOfStoragePorts(form.getLaptopMaxNumberOfStoragePorts())
+                .laptopConnectionPort(form.getLaptopConnectionPort())
+                .laptopOutputPort(form.getLaptopOutputPort())
                 .build();
     }
 
@@ -96,5 +100,9 @@ public class SpecificationMapper {
         specification.setKeyboardModel(form.getKeyboardModel());
         specification.setLaptopStorage(form.getLaptopStorage());
         specification.setLaptopOperatingSystem(form.getLaptopOperatingSystem());
+        specification.setLaptopSeries(SpecificationEnum.LaptopSeries.checkValue(form.getLaptopSeries()));
+        specification.setLaptopMaxNumberOfStoragePorts(form.getLaptopMaxNumberOfStoragePorts());
+        specification.setLaptopConnectionPort(form.getLaptopConnectionPort());
+        specification.setLaptopOutputPort(form.getLaptopOutputPort());
     }
 }
