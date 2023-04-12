@@ -87,7 +87,12 @@ public class EnumController {
     }
 
     @GetMapping("/hardDiskCapacity")
-    public ResponseEntity<BaseResponseData> getHHardDiskCapacity() {
+    public ResponseEntity<BaseResponseData> getHardDiskCapacity() {
         return ResponseEntity.ok(new BaseResponseData(200, "Success", SpecificationEnum.HardDiskCapacity.getList()));
+    }
+
+    @GetMapping("/laptopSeries")
+    public ResponseEntity<BaseResponseData> getLaptopSeries() {
+        return ResponseEntity.ok(new BaseResponseData(200, "Success", SpecificationEnum.LaptopSeries.getList()));
     }
 }

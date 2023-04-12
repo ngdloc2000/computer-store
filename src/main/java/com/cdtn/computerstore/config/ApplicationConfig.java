@@ -1,4 +1,4 @@
-package com.cdtn.computerstore.security;
+package com.cdtn.computerstore.config;
 
 import com.cdtn.computerstore.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;

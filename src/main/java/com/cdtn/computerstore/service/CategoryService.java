@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class CategoryService {
             pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
         }
 
-        return categoryRepository.findAll(pageable);
+        return categoryRepository.findAll(Objects.requireNonNull(pageable));
     }
 
 }
