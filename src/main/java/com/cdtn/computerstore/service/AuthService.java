@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,12 +24,18 @@ public class AuthService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public BaseResponseData authenticate(AuthenticationRequest request) {
 
         Optional<User> user = userRepository.findByUserName(request.getUsername());
 
         if (user.isPresent()) {
+            boolean checkPassword = passwordEncoder.matches(request.getPassword(), user.get().getPassword());
+            if (!checkPassword) {
+                return new BaseResponseData(500, "Mật khẩu nhập không chính xác", null);
+            }
+
             String role = userRepository.findUserRoleByUsername(user.get().getUsername());
 
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -48,11 +55,7 @@ public class AuthService {
 
             return new BaseResponseData(200, "Success", response);
         } else {
-            return new BaseResponseData(500, "User không tồn tại", null);
+            return new BaseResponseData(500, "Tài khoản nhập không chính xác", null);
         }
-
-
-
-
     }
 }

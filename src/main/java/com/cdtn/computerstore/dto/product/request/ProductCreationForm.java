@@ -16,7 +16,6 @@ public class ProductCreationForm {
     private Integer brand;
     private String description;
     private Long price;
-    private Double discount;
     private Integer quantity;
     @NotNull
     private Integer featured;

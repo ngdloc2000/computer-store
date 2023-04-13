@@ -19,7 +19,6 @@ public class ProductMapper {
                 .brand(ProductEnum.Brand.checkValue(form.getBrand()))
                 .description(form.getDescription())
                 .price(form.getPrice())
-                .discount(form.getDiscount())
                 .quantity(form.getQuantity())
                 .sold(0)
                 .status(ProductEnum.Status.ACTIVE.getValue())
@@ -38,7 +37,6 @@ public class ProductMapper {
         product.setBrand(ProductEnum.Brand.checkValue(form.getBrand()));
         product.setDescription(form.getDescription());
         product.setPrice(form.getPrice());
-        product.setDiscount(form.getDiscount());
         product.setQuantity(form.getQuantity());
         product.setStatus(ProductEnum.Status.ACTIVE.getValue());
         product.setFeatured(ProductEnum.Featured.checkValue(form.getFeatured()));
