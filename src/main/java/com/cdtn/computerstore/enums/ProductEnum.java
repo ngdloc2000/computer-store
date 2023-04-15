@@ -48,9 +48,20 @@ public class ProductEnum {
                         .map(Brand::getValue)
                         .filter(eValue -> eValue.equals(value))
                         .findFirst()
-                        .orElseThrow(() -> new StoreException("Color not found with value " + value));
+                        .orElseThrow(() -> new StoreException("Brand not found with value " + value));
             }
-            throw new StoreException("Color value is null");
+            throw new StoreException("Brand value is null");
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(Brand.values())
+                        .filter(brand -> brand.getValue().equals(value))
+                        .map(Brand::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("Brand not found with value " + value));
+            }
+            return null;
         }
 
         public static List<SelectOptionResponse> getList() {
@@ -89,6 +100,17 @@ public class ProductEnum {
             return Stream.of(Color.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(Color.values())
+                        .filter(color -> color.getValue().equals(value))
+                        .map(Color::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("Color not found with value " + value));
+            }
+            return null;
         }
 
         public Integer getValue() {

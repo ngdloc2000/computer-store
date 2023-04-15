@@ -1,6 +1,8 @@
 package com.cdtn.computerstore.repository.product;
+
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
 import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.enums.ProductEnum;
 import com.cdtn.computerstore.exception.StoreException;
 import com.cdtn.computerstore.util.PageUtil;
 import com.cdtn.computerstore.util.QueryUtil;
@@ -28,13 +30,12 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         try {
             List<ProductInfoAdminSearch> productInfoAdminSearchList = jdbcTemplate.query(
                     createQueryGetProductDto(form),
-                    setParam(form),
+                    setParamSearchByAdmin(form),
                     (rs, rowNum) -> new ProductInfoAdminSearch(
                             rs.getLong("productId"),
-                            rs.getLong("categoryId"),
                             rs.getString("productName"),
                             rs.getString("p.image_main"),
-                            rs.getInt("p.brand"),
+                            ProductEnum.Brand.getNameByValue(rs.getInt("p.brand")),
                             rs.getLong("p.price"),
                             rs.getDouble("p.discount"),
                             rs.getInt("p.quantity"),
@@ -136,7 +137,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         return query;
     }
 
-    private Map<String, Object> setParam(ProductQuerySearchForm form) {
+    private Map<String, Object> setParamSearchByAdmin(ProductQuerySearchForm form) {
 
         Map<String, Object> map = new HashMap<>();
 

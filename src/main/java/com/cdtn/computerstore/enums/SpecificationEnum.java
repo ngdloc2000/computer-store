@@ -46,6 +46,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(MouseType.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(MouseType::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("MouseType not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum CpuSeries {
@@ -90,6 +101,17 @@ public class SpecificationEnum {
             return Stream.of(CpuSeries.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(CpuSeries.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(CpuSeries::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("CpuSeries not found with value " + value));
+            }
+            return null;
         }
     }
 
@@ -136,6 +158,17 @@ public class SpecificationEnum {
             return Stream.of(CpuSocket.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(CpuSocket.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(CpuSocket::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("CpuSocket not found with value " + value));
+            }
+            return null;
         }
     }
 
@@ -190,49 +223,16 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
-    }
 
-    public enum MonitorSeries {
-        ALIENWARE(1, "Alienware"),
-        ELITE_DISPLAY(2, "Elite Display"),
-        MODERN(3, "Modern"),
-        NITRO(4, "Nitro"),
-        PREDATOR(5, "Predator"),
-        ROG(6, "ROG"),
-        TUF(7, "TUF"),
-        VG(8, "VG");
-
-        private final Integer value;
-        private final String name;
-
-        MonitorSeries(Integer value, String name) {
-            this.value = value;
-            this.name = name;
-        }
-
-        public Integer getValue() {
-            return value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public static Integer checkValue(Integer value) {
+        public static String getNameByValue(Integer value) {
             if (Objects.nonNull(value)) {
-                return Stream.of(MonitorSeries.values())
-                        .map(MonitorSeries::getValue)
-                        .filter(eValue -> eValue.equals(value))
+                return Stream.of(RamSeries.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(RamSeries::getName)
                         .findFirst()
-                        .orElseThrow(() -> new StoreException("Monitor series not found with value " + value));
+                        .orElseThrow(() -> new StoreException("RamSeries not found with value " + value));
             }
             return null;
-        }
-
-        public static List<SelectOptionResponse> getList() {
-            return Stream.of(MonitorSeries.values())
-                    .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
-                    .collect(Collectors.toList());
         }
     }
 
@@ -303,6 +303,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(MonitorSize.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(MonitorSize::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("MonitorSize not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum MonitorResolution {
@@ -353,6 +364,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(MonitorResolution.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(MonitorResolution::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("MonitorResolution not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum MonitorPanel {
@@ -397,6 +419,17 @@ public class SpecificationEnum {
             return Stream.of(MonitorPanel.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(MonitorPanel.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(MonitorPanel::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("MonitorPanel not found with value " + value));
+            }
+            return null;
         }
     }
 
@@ -449,6 +482,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(MonitorRefreshRate.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(MonitorRefreshRate::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("MonitorRefreshRate not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum HardDiskSeries {
@@ -493,6 +537,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(HardDiskSeries.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(HardDiskSeries::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("HardDiskSeries not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum HardDiskType {
@@ -532,6 +587,17 @@ public class SpecificationEnum {
             return Stream.of(HardDiskType.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(HardDiskType.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(HardDiskType::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("HardDiskType not found with value " + value));
+            }
+            return null;
         }
     }
 
@@ -574,6 +640,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(HardDiskConnectionType.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(HardDiskConnectionType::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("HardDiskConnectionType not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum HardDiskCapacity {
@@ -614,6 +691,17 @@ public class SpecificationEnum {
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
         }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(HardDiskCapacity.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(HardDiskCapacity::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("HardDiskCapacity not found with value " + value));
+            }
+            return null;
+        }
     }
 
     public enum LaptopSeries {
@@ -624,7 +712,8 @@ public class SpecificationEnum {
         INSPRIRON(4, "Inspiron"),
         LATITUDE(5, "Latitude"),
         VOSTRO(6, "Vostro"),
-        XPS(7, "XPS");
+        XPS(7, "XPS"),
+        ZENBOOK(8, "ZenBook");
 
         private final Integer value;
         private final String name;
@@ -657,6 +746,17 @@ public class SpecificationEnum {
             return Stream.of(LaptopSeries.values())
                     .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
                     .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(LaptopSeries.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(LaptopSeries::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("LaptopSeries not found with value " + value));
+            }
+            return null;
         }
     }
 }

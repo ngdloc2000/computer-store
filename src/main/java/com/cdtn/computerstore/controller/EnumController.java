@@ -46,11 +46,6 @@ public class EnumController {
         return ResponseEntity.ok(new BaseResponseData(200, "Success", SpecificationEnum.RamSeries.getList()));
     }
 
-    @GetMapping("/monitorSeries")
-    public ResponseEntity<BaseResponseData> getMonitorSeries() {
-        return ResponseEntity.ok(new BaseResponseData(200, "Success", SpecificationEnum.MonitorSeries.getList()));
-    }
-
     @GetMapping("/monitorSize")
     public ResponseEntity<BaseResponseData> getMonitorSize() {
         return ResponseEntity.ok(new BaseResponseData(200, "Success", SpecificationEnum.MonitorSize.getList()));

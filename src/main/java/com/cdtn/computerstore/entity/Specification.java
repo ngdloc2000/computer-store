@@ -39,7 +39,6 @@ public class Specification {
     private Double ramVoltage;
     private Integer ramCapacity;
     private String monitorModel;
-    private Integer monitorSeries;
     private Integer monitorSize;
     private Integer monitorResolution;
     private Integer monitorPanel;

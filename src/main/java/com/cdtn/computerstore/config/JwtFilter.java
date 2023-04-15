@@ -1,6 +1,5 @@
 package com.cdtn.computerstore.config;
 
-import com.cdtn.computerstore.entity.User;
 import com.cdtn.computerstore.service.JwtService;
 import com.cdtn.computerstore.service.UserDetailServicesImpl;
 import jakarta.servlet.FilterChain;

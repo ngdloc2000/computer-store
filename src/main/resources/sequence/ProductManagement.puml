@@ -1,0 +1,72 @@
+@startuml
+participant Start as Start
+actor       Admin       as Admin
+boundary    ProductManagementForm    as ProductManagementForm
+control     Controller     as Controller
+entity      Entity      as Category
+database    Database    as Database
+
+autonumber
+
+Start -> Admin : Đăng nhập thành công
+
+group Hiển thị danh sách sản phẩm
+Admin -> ProductManagementForm : Chọn loại sản phẩm
+ProductManagementForm -> Controller : Gửi yêu cầu
+Controller -> Database : Lấy danh sách từ CSDL
+Category <-- Database : Trả dữ liệu
+Controller <-- Category : Trả dữ liệu
+ProductManagementForm <-- Controller : Trả dữ liệu json
+ProductManagementForm  -> ProductManagementForm : Hiển thị danh sách sản phẩm
+end
+
+group Thêm sản phẩm
+Admin -> ProductManagementForm : Truy cập chức năng thêm
+Admin <-- ProductManagementForm : Hiển thị form tạo
+Admin -> ProductManagementForm : Nhập dữ liệu
+ProductManagementForm -> Controller : Gửi yêu cầu
+activate Controller
+Controller -> Controller : Kiểm tra tính hợp lệ
+    alt#Gold #LightBlue Hợp lệ
+    Controller -> Category : Khởi tạo đối tượng
+    Category -> Database : Lưu vào CSDL
+    Database --> Controller : Trả dữ liệu
+    Controller --> ProductManagementForm : Trả dữ liệu json
+    ProductManagementForm -> ProductManagementForm : Hiển thị danh sách sản phẩm
+    else #Pink Lỗi
+    Controller --> ProductManagementForm : Trả message lỗi
+    ProductManagementForm -> ProductManagementForm : Hiển thị message lỗi
+    end
+deactivate Controller
+end
+
+group Sửa sản phẩm
+Admin -> ProductManagementForm : Truy cập chức năng sửa
+Admin <-- ProductManagementForm : Hiển thị form sửa
+Admin -> ProductManagementForm : Nhập dữ liệu
+ProductManagementForm -> Controller : Gửi yêu cầu
+activate Controller
+Controller -> Controller : Kiểm tra tính hợp lệ
+    alt#Gold #LightBlue Hợp lệ
+    Controller -> Category : Khởi tạo đối tượng
+    Category -> Database : Lưu vào CSDL
+    Database --> Controller : Trả dữ liệu
+    Controller --> ProductManagementForm : Trả dữ liệu json
+    ProductManagementForm -> ProductManagementForm : Hiển thị danh sách sản phẩm
+    else #Pink Lỗi
+    Controller --> ProductManagementForm : Trả message lỗi
+    ProductManagementForm -> ProductManagementForm : Hiển thị message lỗi
+    end
+deactivate Controller
+end
+
+group Xóa sản phẩm
+Admin -> ProductManagementForm : Chọn sản phẩm xóa
+Admin <-- ProductManagementForm : Hiển thị thông báo xóa
+ProductManagementForm -> Controller : Gửi yêu cầu
+Controller -> Database : Xóa sản phẩm
+Controller --> ProductManagementForm : Thông báo xóa thành công
+ProductManagementForm -> ProductManagementForm : Hiển thị danh sách sản phẩm
+end
+
+@enduml

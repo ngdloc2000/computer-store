@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProductInfoAdminSearch {
     private Long productId;
-    private Long categoryId;
     private String productName;
     private String imageMain;
-    private Integer brand;
+    private String brand;
     private Long price;
     private Double discount;
     private Integer quantity;

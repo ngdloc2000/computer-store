@@ -8,7 +8,6 @@ public class QueryUtil {
 
         return switch (order) {
             case "productId" -> "productId ";
-            case "categoryId" -> "categoryId ";
             case "productName" -> "productName ";
             case "price" -> "price ";
             case "quantity" -> "quantity ";

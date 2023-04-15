@@ -3,20 +3,17 @@ package com.cdtn.computerstore.controller;
 import com.cdtn.computerstore.dto.base.BaseResponseData;
 import com.cdtn.computerstore.dto.product.request.ProductCreationForm;
 import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.dto.product.response.ProductDetail;
+import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
 import com.cdtn.computerstore.service.ProductService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.sf.jasperreports.engine.*;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -25,12 +22,17 @@ import java.io.InputStream;
 public class ProductController {
 
     private final ProductService productService;
-    private final ResourceLoader resourceLoader;
 
     @PostMapping("/create")
-    public ResponseEntity<BaseResponseData> createCategory(@RequestBody @Valid ProductCreationForm creationForm) {
+    public ResponseEntity<BaseResponseData> createProduct(@RequestBody @Valid ProductCreationForm creationForm) {
 
-        return ResponseEntity.ok(productService.createProduct(creationForm));
+        try {
+            productService.createProduct(creationForm);
+
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
     }
 
     @GetMapping("/admin/search")
@@ -44,26 +46,35 @@ public class ProductController {
                     .body(new BaseResponseData(400, errorMessage, null));
         }
 
-        return ResponseEntity.ok(productService.getProductInfoAdminSearchList(form));
+        try {
+            List<ProductInfoAdminSearch> productList = productService.getProductInfoAdminSearchList(form);
+
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
     }
 
-    @GetMapping("/export/pdf")
-    public void exportReport(HttpServletResponse response) throws JRException, IOException {
+    @GetMapping("/detail")
+    public ResponseEntity<BaseResponseData> getProductDetailById(@RequestParam Long productId) {
+
         try {
-            // Tải mẫu Jasper Reports
-            Resource resource = resourceLoader.getResource("classpath:report_template.jrxml");
-            InputStream inputStream = resource.getInputStream();
+            ProductDetail productDetail = productService.findProductDetailByProductId(productId);
 
-            // Compile mẫu thành báo cáo JasperPrint
-            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
-
-            // Xuất báo cáo ra tập tin PDF
-            response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
-            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", productDetail));
         } catch (Exception e) {
-            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<BaseResponseData> deleteProduct(@RequestParam Long productId) {
+
+        try {
+            productService.deleteProductById(productId);
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
 }

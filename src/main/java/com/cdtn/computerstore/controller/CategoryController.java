@@ -22,8 +22,12 @@ public class CategoryController {
     @PostMapping("/create")
     public ResponseEntity<BaseResponseData> createCategory(@RequestBody @Valid CategoryCreationForm creationForm) {
 
-        categoryService.createCategory(creationForm);
-        return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
+        try {
+            categoryService.createCategory(creationForm);
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", e.getMessage()));
+        }
     }
 
     @GetMapping("/showAll")
