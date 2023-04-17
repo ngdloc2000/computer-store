@@ -236,6 +236,57 @@ public class SpecificationEnum {
         }
     }
 
+    public enum RamCapacity {
+        CAPACITY_16GB(1, "16GB"),
+        CAPACITY_32GB(2, "32GB"),
+        CAPACITY_1TB(3, "1TB"),
+        CAPACITY_2TB(4, "2TB");
+
+        private final Integer value;
+        private final String name;
+
+        RamCapacity(Integer value, String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Integer checkValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(RamCapacity.values())
+                        .map(RamCapacity::getValue)
+                        .filter(eValue -> eValue.equals(value))
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("Ram capacity not found with value " + value));
+            }
+            return null;
+        }
+
+        public static List<SelectOptionResponse> getList() {
+            return Stream.of(RamCapacity.values())
+                    .map(e -> new SelectOptionResponse(e.getValue(), e.getName()))
+                    .collect(Collectors.toList());
+        }
+
+        public static String getNameByValue(Integer value) {
+            if (Objects.nonNull(value)) {
+                return Stream.of(RamCapacity.values())
+                        .filter(e -> e.getValue().equals(value))
+                        .map(RamCapacity::getName)
+                        .findFirst()
+                        .orElseThrow(() -> new StoreException("RamCapacity not found with value " + value));
+            }
+            return null;
+        }
+    }
+
     public enum MonitorSize {
         SIZE_14(1, "14\""),
         SIZE_15_6(2, "15.6\""),

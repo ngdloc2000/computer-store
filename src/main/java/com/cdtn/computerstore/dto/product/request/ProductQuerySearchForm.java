@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -23,4 +25,9 @@ public class ProductQuerySearchForm {
     private Integer size;
     private String sort;
     private String order;
+    private List<Integer> brandList;
+    private List<Integer> laptopSeriesList;
+    private List<Integer> colorList;
+    private List<Integer> cpuSeriesList;
+    private List<Integer> ramCapacityList;
 }

@@ -5,6 +5,7 @@ import com.cdtn.computerstore.dto.product.request.ProductCreationForm;
 import com.cdtn.computerstore.dto.product.response.ProductDetail;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
 import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.dto.specification.mapper.SpecificationMapper;
 import com.cdtn.computerstore.entity.Category;
 import com.cdtn.computerstore.entity.Product;
@@ -61,6 +62,14 @@ public class ProductService {
 
         Page<ProductInfoAdminSearch> productInfoPage = customProductRepository.getProductInfoAdminSearchDto(form);
         List<ProductInfoAdminSearch> productInfoList = productInfoPage.getContent();
+
+        return productInfoList;
+    }
+
+    public List<ProductInfoClientSearch> getProductInfoClientSearchList(ProductQuerySearchForm form) {
+
+        Page<ProductInfoClientSearch> productInfoPage = customProductRepository.getProductInfoClientSearchDto(form);
+        List<ProductInfoClientSearch> productInfoList = productInfoPage.getContent();
 
         return productInfoList;
     }

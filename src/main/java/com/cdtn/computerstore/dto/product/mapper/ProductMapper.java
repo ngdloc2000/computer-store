@@ -83,7 +83,7 @@ public class ProductMapper {
                 .ramBus(specification.getRamBus())
                 .ramTiming(specification.getRamTiming())
                 .ramVoltage(specification.getRamVoltage())
-                .ramCapacity(specification.getRamCapacity())
+                .ramCapacity(SpecificationEnum.RamCapacity.getNameByValue(specification.getRamCapacity()))
                 .monitorModel(specification.getMonitorModel())
                 .monitorSize(SpecificationEnum.MonitorSize.getNameByValue(specification.getMonitorSize()))
                 .monitorResolution(SpecificationEnum.MonitorResolution.getNameByValue(specification.getMonitorResolution()))

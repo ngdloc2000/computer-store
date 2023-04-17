@@ -5,6 +5,7 @@ import com.cdtn.computerstore.dto.product.request.ProductCreationForm;
 import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
 import com.cdtn.computerstore.dto.product.response.ProductDetail;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
+import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,26 @@ public class ProductController {
 
         try {
             List<ProductInfoAdminSearch> productList = productService.getProductInfoAdminSearchList(form);
+
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/client/search")
+    public ResponseEntity<BaseResponseData> searchProductByClient(
+            @RequestBody @Valid ProductQuerySearchForm form,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            String errorMessage = "Bad Request: " + bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BaseResponseData(400, errorMessage, null));
+        }
+
+        try {
+            List<ProductInfoClientSearch> productList = productService.getProductInfoClientSearchList(form);
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
         } catch (Exception e) {

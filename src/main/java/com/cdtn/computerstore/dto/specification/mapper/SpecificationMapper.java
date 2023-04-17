@@ -32,7 +32,7 @@ public class SpecificationMapper {
                 .ramBus(form.getRamBus())
                 .ramTiming(form.getRamTiming())
                 .ramVoltage(form.getRamVoltage())
-                .ramCapacity(form.getRamCapacity())
+                .ramCapacity(SpecificationEnum.RamCapacity.checkValue(form.getRamCapacity()))
                 .monitorModel(form.getMonitorModel())
                 .monitorSize(SpecificationEnum.MonitorSize.checkValue(form.getMonitorSize()))
                 .monitorResolution(SpecificationEnum.MonitorResolution.checkValue(form.getMonitorResolution()))
@@ -79,7 +79,7 @@ public class SpecificationMapper {
         specification.setRamBus(form.getRamBus());
         specification.setRamTiming(form.getRamTiming());
         specification.setRamVoltage(form.getRamVoltage());
-        specification.setRamCapacity(form.getRamCapacity());
+        specification.setRamCapacity(SpecificationEnum.RamCapacity.checkValue(form.getRamCapacity()));
         specification.setMonitorModel(form.getMonitorModel());
         specification.setMonitorSize(SpecificationEnum.MonitorSize.checkValue(form.getMonitorSize()));
         specification.setMonitorResolution(SpecificationEnum.MonitorResolution.checkValue(form.getMonitorResolution()));

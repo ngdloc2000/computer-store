@@ -44,7 +44,7 @@ public class ProductDetail {
     private Integer ramBus;
     private Integer ramTiming;
     private Double ramVoltage;
-    private Integer ramCapacity;
+    private String ramCapacity;
     private String monitorModel;
     private String monitorSize;
     private String monitorResolution;
