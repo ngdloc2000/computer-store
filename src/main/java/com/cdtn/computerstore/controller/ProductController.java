@@ -36,9 +36,9 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/admin/search")
+    @PostMapping("/admin/search")
     public ResponseEntity<BaseResponseData> searchProductByAdmin(
-            @ModelAttribute @Valid ProductQuerySearchForm form,
+            @RequestBody @Valid ProductQuerySearchForm form,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {

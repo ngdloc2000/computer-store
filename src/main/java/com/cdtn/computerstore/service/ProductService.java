@@ -37,6 +37,8 @@ public class ProductService {
     @Transactional
     public void createProduct(ProductCreationForm form) {
 
+        form.validateForm();
+
         Product product;
         Specification specification;
 

@@ -21,7 +21,8 @@ public class Product {
     private String imageMain;
     private Integer brand;
     private String description;
-    private Long price;
+    private Long retailPrice;
+    private Long latestPrice;
     private Double discount;
     private Integer quantity;
     private Integer sold;

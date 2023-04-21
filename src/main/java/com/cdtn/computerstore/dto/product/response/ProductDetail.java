@@ -17,7 +17,8 @@ public class ProductDetail {
     private String productName;
     private String imageMain;
     private String brand;
-    private Long price;
+    private Long retailPrice;
+    private Long latestPrice;
     private Double discount;
     private Integer quantity;
     private Integer sold;

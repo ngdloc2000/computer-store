@@ -37,7 +37,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                             rs.getString("productName"),
                             rs.getString("p.image_main"),
                             ProductEnum.Brand.getNameByValue(rs.getInt("p.brand")),
-                            rs.getLong("p.price"),
+                            rs.getLong("p.retail_price"),
+                            rs.getLong("p.latest_price"),
                             rs.getDouble("p.discount"),
                             rs.getInt("p.quantity"),
                             rs.getInt("p.sold"),
@@ -69,10 +70,15 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                                     Objects.isNull(rs.getBigDecimal("p.brand"))
                                             ? null
                                             : rs.getBigDecimal("p.brand").intValue()))
-                            .price(
-                                    Objects.isNull(rs.getBigDecimal("p.price"))
+                            .retailPrice(
+                                    Objects.isNull(rs.getBigDecimal("p.retail_price"))
                                             ? null
-                                            : rs.getBigDecimal("p.price").longValue()
+                                            : rs.getBigDecimal("p.retail_price").longValue()
+                            )
+                            .latestPrice(
+                                    Objects.isNull(rs.getBigDecimal("p.latest_price"))
+                                            ? null
+                                            : rs.getBigDecimal("p.latest_price").longValue()
                             )
                             .discount(
                                     Objects.isNull(rs.getBigDecimal("p.discount"))
@@ -101,7 +107,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                                p.name        as productName,
                                p.image_main,
                                p.brand,
-                               p.price,
+                               p.retail_price,
+                               p.latest_price,
                                p.discount,
                                p.quantity,
                                p.sold,
@@ -123,11 +130,11 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (Objects.nonNull(form.getMinPrice()) && Objects.nonNull(form.getMaxPrice())) {
-            whereList.add("p.price >= :minPrice and p.price <= :maxPrice ");
+            whereList.add("p.latest_price >= :minPrice and p.latest_price <= :maxPrice ");
         } else if (Objects.nonNull(form.getMinPrice())) {
-            whereList.add("p.price >= :minPrice ");
+            whereList.add("p.latest_price >= :minPrice ");
         } else if (Objects.nonNull(form.getMaxPrice())) {
-            whereList.add("p.price <= :maxPrice ");
+            whereList.add("p.latest_price <= :maxPrice ");
         }
 
         if (Objects.nonNull(form.getStatus())) {
@@ -178,7 +185,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                                p.name        as productName,
                                p.image_main,
                                p.brand,
-                               p.price,
+                               p.retail_price,
+                               p.latest_price,
                                p.discount,
                                p.warranty,
                                p.created_at  as createAt
@@ -199,11 +207,11 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (Objects.nonNull(form.getMinPrice()) && Objects.nonNull(form.getMaxPrice())) {
-            whereList.add("p.price >= :minPrice and p.price <= :maxPrice ");
+            whereList.add("p.latest_price >= :minPrice and p.latest_price <= :maxPrice ");
         } else if (Objects.nonNull(form.getMinPrice())) {
-            whereList.add("p.price >= :minPrice ");
+            whereList.add("p.latest_price >= :minPrice ");
         } else if (Objects.nonNull(form.getMaxPrice())) {
-            whereList.add("p.price <= :maxPrice ");
+            whereList.add("p.latest_price <= :maxPrice ");
         }
 
         if (Objects.nonNull(form.getBrandList()) && form.getBrandList().size() != 0) {

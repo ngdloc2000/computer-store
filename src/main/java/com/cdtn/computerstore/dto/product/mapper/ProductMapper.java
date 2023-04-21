@@ -7,9 +7,11 @@ import com.cdtn.computerstore.entity.Product;
 import com.cdtn.computerstore.entity.Specification;
 import com.cdtn.computerstore.enums.ProductEnum;
 import com.cdtn.computerstore.enums.SpecificationEnum;
+import com.cdtn.computerstore.util.StoreUtil;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class ProductMapper {
@@ -22,7 +24,9 @@ public class ProductMapper {
                 .imageMain(form.getImageMain())
                 .brand(ProductEnum.Brand.checkValue(form.getBrand()))
                 .description(form.getDescription())
-                .price(form.getPrice())
+                .retailPrice(form.getRetailPrice())
+                .latestPrice(Objects.isNull(form.getLatestPrice()) ? form.getRetailPrice() : form.getLatestPrice())
+                .discount(StoreUtil.calculateDiscountProduct(form.getRetailPrice(), form.getLatestPrice()))
                 .quantity(form.getQuantity())
                 .sold(0)
                 .status(ProductEnum.Status.ACTIVE.getValue())
@@ -40,7 +44,9 @@ public class ProductMapper {
         product.setImageMain(form.getImageMain());
         product.setBrand(ProductEnum.Brand.checkValue(form.getBrand()));
         product.setDescription(form.getDescription());
-        product.setPrice(form.getPrice());
+        product.setRetailPrice(form.getRetailPrice());
+        product.setLatestPrice(Objects.isNull(form.getLatestPrice()) ? form.getRetailPrice() : form.getLatestPrice());
+        product.setDiscount(StoreUtil.calculateDiscountProduct(form.getRetailPrice(), form.getLatestPrice()));
         product.setQuantity(form.getQuantity());
         product.setStatus(ProductEnum.Status.ACTIVE.getValue());
         product.setFeatured(ProductEnum.Featured.checkValue(form.getFeatured()));
@@ -56,7 +62,8 @@ public class ProductMapper {
                 .productName(product.getName())
                 .imageMain(product.getImageMain())
                 .brand(ProductEnum.Brand.getNameByValue(product.getBrand()))
-                .price(product.getPrice())
+                .retailPrice(product.getRetailPrice())
+                .latestPrice(product.getLatestPrice())
                 .discount(product.getDiscount())
                 .quantity(product.getQuantity())
                 .sold(product.getSold())

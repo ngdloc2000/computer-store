@@ -1,5 +1,6 @@
 package com.cdtn.computerstore.dto.product.request;
 
+import com.cdtn.computerstore.exception.StoreException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -15,7 +16,8 @@ public class ProductCreationForm {
     private String imageMain;
     private Integer brand;
     private String description;
-    private Long price;
+    private Long retailPrice;
+    private Long latestPrice;
     private Integer quantity;
     @NotNull
     private Integer featured;
@@ -66,4 +68,11 @@ public class ProductCreationForm {
     private String laptopMaxNumberOfStoragePorts;
     private String laptopConnectionPort;
     private String laptopOutputPort;
+
+    public void validateForm() {
+
+        if (this.latestPrice > this.retailPrice) {
+            throw new StoreException("Giá khuyến mại không được lớn hơn giá bán lẻ");
+        }
+    }
 }
