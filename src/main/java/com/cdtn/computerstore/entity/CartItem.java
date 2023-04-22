@@ -20,7 +20,6 @@ public class CartItem {
     private Long cartId;
     private Long productId;
     private Long quantity;
-    private Long price;
     private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

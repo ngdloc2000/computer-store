@@ -1,14 +1,12 @@
 package com.cdtn.computerstore.controller;
 
 import com.cdtn.computerstore.dto.base.BaseResponseData;
+import com.cdtn.computerstore.dto.cart.response.CartDetail;
 import com.cdtn.computerstore.service.CartService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
@@ -24,12 +22,9 @@ public class CartController {
 
         try {
 
-            Map<String, Object> result = new HashMap<>();
-            Long cartId = cartService.getCartIdAfterCreateCart(clientId, productId);
+            cartService.getCartIdAfterCreateCart(clientId, productId);
 
-            result.put("cartId", cartId);
-
-            return ResponseEntity.ok(new BaseResponseData(200, "Success", result));
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
@@ -41,13 +36,22 @@ public class CartController {
 
         try {
 
-            Map<String, Object> result = new HashMap<>();
-
             cartService.updateProductInCartWhenRemoveProduct(cartId, productId);
 
-            result.put("cartId", cartId);
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
+    }
 
-            return ResponseEntity.ok(new BaseResponseData(200, "Success", result));
+    @GetMapping("/getCartDetail")
+    public ResponseEntity<BaseResponseData> getCartDetailByUserId(@RequestParam @NotNull Long userId) {
+
+        try {
+
+            CartDetail cartDetail = cartService.getCartDetailByUserId(userId);
+
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", cartDetail));
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }

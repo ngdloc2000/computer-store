@@ -1,5 +1,7 @@
 package com.cdtn.computerstore.dto.cart.mapper;
 
+import com.cdtn.computerstore.dto.cart.response.CartDetail;
+import com.cdtn.computerstore.dto.cart.response.CartItemDetail;
 import com.cdtn.computerstore.entity.Cart;
 import com.cdtn.computerstore.entity.CartItem;
 import com.cdtn.computerstore.entity.Product;
@@ -8,6 +10,7 @@ import com.cdtn.computerstore.enums.CartItemEnum;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class CartMapper {
@@ -27,7 +30,6 @@ public class CartMapper {
                 .cartId(cartId)
                 .productId(product.getId())
                 .quantity(1L)
-                .price(product.getLatestPrice())
                 .status(CartItemEnum.Status.ACTIVE.getValue())
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -42,9 +44,8 @@ public class CartMapper {
 
         if (CartItemEnum.Status.INACTIVE.getValue().equals(cartItem.getStatus())) {
             cartItem.setQuantity(1L);
-            cartItem.setPrice(product.getLatestPrice());
             cartItem.setStatus(CartItemEnum.Status.ACTIVE.getValue());
-        } else if (CartItemEnum.Status.ACTIVE.getValue().equals(cartItem.getStatus())){
+        } else if (CartItemEnum.Status.ACTIVE.getValue().equals(cartItem.getStatus())) {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
         }
         cartItem.setUpdatedAt(LocalDateTime.now());
@@ -59,5 +60,18 @@ public class CartMapper {
             cartItem.setQuantity(cartItem.getQuantity() - 1);
         }
         cartItem.setUpdatedAt(LocalDateTime.now());
+    }
+
+    public CartDetail createCartDetail(Long cartId, List<CartItemDetail> cartItemDetailList) {
+
+        Long cartPrice = cartItemDetailList.stream()
+                .mapToLong(CartItemDetail::getTotalPricePerProduct)
+                .sum();
+
+        return CartDetail.builder()
+                .cartId(cartId)
+                .cartPrice(cartPrice)
+                .cartItemDetailList(cartItemDetailList)
+                .build();
     }
 }
