@@ -7,6 +7,7 @@ import com.cdtn.computerstore.entity.CartItem;
 import com.cdtn.computerstore.entity.Product;
 import com.cdtn.computerstore.enums.CartEnum;
 import com.cdtn.computerstore.enums.CartItemEnum;
+import com.cdtn.computerstore.exception.StoreException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -26,35 +27,33 @@ public class CartMapper {
 
     public CartItem createCartItem(Long cartId, Product product) {
 
+        this.checkProductQuantity(product.getQuantity(), 1);
+
         return CartItem.builder()
                 .cartId(cartId)
                 .productId(product.getId())
-                .quantity(1L)
+                .quantity(1)
                 .status(CartItemEnum.Status.ACTIVE.getValue())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
 
-    public void updateCart(Cart cart) {
-
-        cart.setUpdatedAt(LocalDateTime.now());
-    }
-
     public void updateCartItemWhenAddProduct(CartItem cartItem, Product product) {
 
         if (CartItemEnum.Status.INACTIVE.getValue().equals(cartItem.getStatus())) {
-            cartItem.setQuantity(1L);
+            cartItem.setQuantity(1);
             cartItem.setStatus(CartItemEnum.Status.ACTIVE.getValue());
         } else if (CartItemEnum.Status.ACTIVE.getValue().equals(cartItem.getStatus())) {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
         }
+        this.checkProductQuantity(product.getQuantity(), cartItem.getQuantity());
         cartItem.setUpdatedAt(LocalDateTime.now());
     }
 
     public void updateCartItemWhenRemoveProduct(CartItem cartItem) {
 
         if (cartItem.getQuantity() == 1) {
-            cartItem.setQuantity(0L);
+            cartItem.setQuantity(0);
             cartItem.setStatus(CartItemEnum.Status.INACTIVE.getValue());
         } else {
             cartItem.setQuantity(cartItem.getQuantity() - 1);
@@ -73,5 +72,12 @@ public class CartMapper {
                 .cartPrice(cartPrice)
                 .cartItemDetailList(cartItemDetailList)
                 .build();
+    }
+
+    private void checkProductQuantity(Integer oldQuantity, Integer newQuantity) {
+
+        if (newQuantity > oldQuantity) {
+            throw new StoreException("Số lượng đặt hàng vượt quá số lượng tồn kho");
+        }
     }
 }

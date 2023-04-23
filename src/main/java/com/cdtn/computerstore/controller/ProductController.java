@@ -25,7 +25,14 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<BaseResponseData> createProduct(@RequestBody @Valid ProductCreationForm creationForm) {
+    public ResponseEntity<BaseResponseData> createProduct(@RequestBody @Valid ProductCreationForm creationForm,
+                                                          BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            String errorMessage = "Bad Request: " + bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new BaseResponseData(400, errorMessage, null));
+        }
 
         try {
             productService.createProduct(creationForm);

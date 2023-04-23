@@ -16,6 +16,7 @@ public class ProductCreationForm {
     private String imageMain;
     private Integer brand;
     private String description;
+    @NotNull
     private Long retailPrice;
     private Long latestPrice;
     private Integer quantity;
@@ -23,7 +24,7 @@ public class ProductCreationForm {
     private Integer featured;
     private Integer warranty;
 
-//    Thông tin bảng Specificatio
+//    Thông tin bảng Specification
     private Long productId;
     private Integer color;
     private String sizeDescription;

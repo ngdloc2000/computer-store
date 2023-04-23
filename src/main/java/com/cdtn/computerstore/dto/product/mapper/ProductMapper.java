@@ -116,4 +116,10 @@ public class ProductMapper {
                 .laptopOutputPort(specification.getLaptopOutputPort())
                 .build();
     }
+
+    public void updateProductInCart(Product product, Integer productQuantityInCart) {
+
+        product.setQuantity(product.getQuantity() - productQuantityInCart);
+        product.setUpdatedAt(LocalDateTime.now());
+    }
 }

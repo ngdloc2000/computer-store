@@ -19,7 +19,6 @@ public class OrderItem {
     private Long id;
     private Long orderId;
     private Long productId;
-    private Long productName;
     private Integer quantity;
     private Long price;
     private LocalDateTime createAt;

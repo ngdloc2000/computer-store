@@ -22,7 +22,7 @@ public class CartController {
 
         try {
 
-            cartService.getCartIdAfterCreateCart(clientId, productId);
+            cartService.createCartWhenPickProduct(clientId, productId);
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
         } catch (Exception e) {

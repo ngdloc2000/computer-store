@@ -19,8 +19,10 @@ public class Order {
     private Long id;
     private Long clientId;
     private Integer status;
-    private Long shippingFee;
     private Long total;
+    private String consigneeName;
+    private String consigneePhoneNumber;
+    private String deliveryAddress;
     private LocalDateTime createAt;
     private LocalDateTime canceledAt;
     private LocalDateTime completedAt;

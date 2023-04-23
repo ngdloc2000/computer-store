@@ -1,11 +1,11 @@
 package com.cdtn.computerstore.enums;
 
-public class CartEnum {
+public class OrderEnum {
 
     public enum Status {
-        INACTIVE(0),
-        ACTIVE(1),
-        ORDERED(2);
+        CANCEL(0),
+        WAIT(1),
+        PAID(2);
 
         private final Integer value;
 

@@ -10,6 +10,7 @@ import com.cdtn.computerstore.dto.specification.mapper.SpecificationMapper;
 import com.cdtn.computerstore.entity.Category;
 import com.cdtn.computerstore.entity.Product;
 import com.cdtn.computerstore.entity.Specification;
+import com.cdtn.computerstore.enums.ProductEnum;
 import com.cdtn.computerstore.exception.StoreException;
 import com.cdtn.computerstore.repository.category.CategoryRepository;
 import com.cdtn.computerstore.repository.product.CustomProductRepositoryImpl;
@@ -96,5 +97,17 @@ public class ProductService {
                 .orElseThrow(() -> new StoreException("Specification not found with product id " + productId));
         specificationRepository.deleteById(specification.getId());
         productRepository.deleteById(productId);
+    }
+
+    public Product checkProductValid(Long productId) {
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new StoreException("Product not found with id: " + productId));
+
+        if (!product.getStatus().equals(ProductEnum.Status.ACTIVE.getValue())) {
+            throw new StoreException("Product status is not active");
+        }
+
+        return product;
     }
 }

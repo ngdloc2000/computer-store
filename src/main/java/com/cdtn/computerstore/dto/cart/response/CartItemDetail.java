@@ -13,7 +13,7 @@ public class CartItemDetail {
     private Long productId;
     private String productName;
     private String productImageMain;
-    private Long itemQuantity;
+    private Integer itemQuantity;
     private Long productLatestPrice;
     private Long totalPricePerProduct;
 }

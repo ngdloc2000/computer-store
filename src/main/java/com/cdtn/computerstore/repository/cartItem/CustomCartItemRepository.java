@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CustomCartItemRepository {
 
-    List<CartItemDetail> getItemInCart(Long cartId, Long clientId);
+    List<CartItemDetail> getItemActiveInCart(Long cartId, Long clientId);
 }

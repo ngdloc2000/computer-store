@@ -18,7 +18,7 @@ public class CustomCartItemRepositoryImpl implements CustomCartItemRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public List<CartItemDetail> getItemInCart(Long cartId, Long clientId) {
+    public List<CartItemDetail> getItemActiveInCart(Long cartId, Long clientId) {
 
         String query =
                 """
@@ -44,7 +44,7 @@ public class CustomCartItemRepositoryImpl implements CustomCartItemRepository {
                             .productId(rs.getLong("productId"))
                             .productName(rs.getString("productName"))
                             .productImageMain(rs.getString("productImageMain"))
-                            .itemQuantity(rs.getLong("itemQuantity"))
+                            .itemQuantity(rs.getInt("itemQuantity"))
                             .productLatestPrice(rs.getLong("productLatestPrice"))
                             .totalPricePerProduct(rs.getLong("totalPricePerProduct"))
                             .build()
