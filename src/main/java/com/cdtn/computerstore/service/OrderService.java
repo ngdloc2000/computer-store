@@ -16,7 +16,6 @@ import com.cdtn.computerstore.repository.order.OrderRepository;
 import com.cdtn.computerstore.repository.product.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -88,16 +87,5 @@ public class OrderService {
         }
 
         return productList;
-    }
-
-    @Scheduled(cron = "0 * * * * *")
-    private void updateOrderStatus() {
-
-        List<Order> orderList = orderRepository.findOverdueOrder();
-        for (Order order : orderList) {
-            order.setStatus(OrderEnum.Status.CANCEL.getValue());
-            order.setCanceledAt(LocalDateTime.now());
-        }
-        orderRepository.saveAll(orderList);
     }
 }

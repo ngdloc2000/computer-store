@@ -23,7 +23,7 @@ public class OrderController {
         try {
             Long orderId = orderService.createOrder(form);
 
-            return ResponseEntity.ok(new BaseResponseData(200, "Error", orderId));
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", orderId));
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
