@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreationOrderForm {
+public class OrderCreationForm {
     @NotNull
     private Long cartId;
     @NotNull

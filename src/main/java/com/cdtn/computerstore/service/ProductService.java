@@ -2,9 +2,10 @@ package com.cdtn.computerstore.service;
 
 import com.cdtn.computerstore.dto.product.mapper.ProductMapper;
 import com.cdtn.computerstore.dto.product.request.ProductCreationForm;
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByClient;
 import com.cdtn.computerstore.dto.product.response.ProductDetail;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
-import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByAdmin;
 import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.dto.specification.mapper.SpecificationMapper;
 import com.cdtn.computerstore.entity.Category;
@@ -61,7 +62,7 @@ public class ProductService {
         specificationRepository.save(specification);
     }
 
-    public List<ProductInfoAdminSearch> getProductInfoAdminSearchList(ProductQuerySearchForm form) {
+    public List<ProductInfoAdminSearch> getProductInfoAdminSearchList(ProductQuerySearchFormByAdmin form) {
 
         Page<ProductInfoAdminSearch> productInfoPage = customProductRepository.getProductInfoAdminSearchDto(form);
         List<ProductInfoAdminSearch> productInfoList = productInfoPage.getContent();
@@ -69,7 +70,7 @@ public class ProductService {
         return productInfoList;
     }
 
-    public List<ProductInfoClientSearch> getProductInfoClientSearchList(ProductQuerySearchForm form) {
+    public List<ProductInfoClientSearch> getProductInfoClientSearchList(ProductQuerySearchFormByClient form) {
 
         Page<ProductInfoClientSearch> productInfoPage = customProductRepository.getProductInfoClientSearchDto(form);
         List<ProductInfoClientSearch> productInfoList = productInfoPage.getContent();

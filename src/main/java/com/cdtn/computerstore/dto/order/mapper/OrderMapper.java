@@ -1,7 +1,7 @@
 package com.cdtn.computerstore.dto.order.mapper;
 
 import com.cdtn.computerstore.dto.cart.response.CartItemDetail;
-import com.cdtn.computerstore.dto.order.request.CreationOrderForm;
+import com.cdtn.computerstore.dto.order.request.OrderCreationForm;
 import com.cdtn.computerstore.entity.Order;
 import com.cdtn.computerstore.enums.OrderEnum;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class OrderMapper {
 
-    public Order createOrder(CreationOrderForm form, List<CartItemDetail> cartItemDetailList) {
+    public Order createOrder(OrderCreationForm form, List<CartItemDetail> cartItemDetailList) {
 
         Long totalPriceOrder = cartItemDetailList
                 .stream()
