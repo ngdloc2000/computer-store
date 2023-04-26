@@ -1,0 +1,63 @@
+@startuml
+participant Start as Start
+actor       Admin       as Admin
+boundary    CategoryManagementForm    as CategoryManagementForm
+control     Controller     as Controller
+entity      CategoryEntity      as Category
+database    Database    as Database
+
+autonumber
+
+Start -> Admin : Đăng nhập thành công
+
+group Hiển thị danh sách danh mục sản phẩm
+Admin -> CategoryManagementForm : Chọn loại danh mục
+CategoryManagementForm -> Controller : Gửi yêu cầu
+Controller -> Database : Lấy danh sách từ CSDL
+Category <-- Database : Trả dữ liệu
+Controller <-- Category : Trả dữ liệu
+CategoryManagementForm <-- Controller : Trả dữ liệu json
+CategoryManagementForm  -> CategoryManagementForm : Hiển thị danh sách danh mục sản phẩm
+end
+
+group Thêm danh mục sản phẩm
+Admin -> CategoryManagementForm : Truy cập chức năng thêm
+Admin <-- CategoryManagementForm : Hiển thị form tạo
+Admin -> CategoryManagementForm : Nhập dữ liệu
+CategoryManagementForm -> Controller : Gửi yêu cầu
+activate Controller
+Controller -> Controller : Kiểm tra tính hợp lệ
+    alt#Gold #LightBlue Hợp lệ
+    Controller -> Category : Khởi tạo đối tượng
+    Category -> Database : Lưu vào CSDL
+    Database --> Controller : Trả dữ liệu
+    Controller --> CategoryManagementForm : Trả dữ liệu json
+    CategoryManagementForm -> CategoryManagementForm : Hiển thị danh sách danh mục sản phẩm
+    else #Pink Lỗi
+    Controller --> CategoryManagementForm : Trả message lỗi
+    CategoryManagementForm -> CategoryManagementForm : Hiển thị message lỗi
+    end
+deactivate Controller
+end
+
+group Sửa danh mục sản phẩm
+Admin -> CategoryManagementForm : Truy cập chức năng sửa
+Admin <-- CategoryManagementForm : Hiển thị form sưa
+Admin -> CategoryManagementForm : Nhập dữ liệu
+CategoryManagementForm -> Controller : Gửi yêu cầu
+activate Controller
+Controller -> Controller : Kiểm tra tính hợp lệ
+    alt#Gold #LightBlue Hợp lệ
+    Controller -> Category : Khởi tạo đối tượng
+    Category -> Database : Lưu vào CSDL
+    Database --> Controller : Trả dữ liệu
+    Controller --> CategoryManagementForm : Trả dữ liệu json
+    CategoryManagementForm -> CategoryManagementForm : Hiển thị danh sách danh mục sản phẩm
+    else #Pink Lỗi
+    Controller --> CategoryManagementForm : Trả message lỗi
+    CategoryManagementForm -> CategoryManagementForm : Hiển thị message lỗi
+    end
+deactivate Controller
+end
+
+@enduml
