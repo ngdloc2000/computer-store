@@ -1,7 +1,8 @@
 package com.cdtn.computerstore.repository.product;
 
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByClient;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
-import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByAdmin;
 import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.enums.ProductEnum;
 import com.cdtn.computerstore.exception.StoreException;
@@ -26,12 +27,12 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    public Page<ProductInfoAdminSearch> getProductInfoAdminSearchDto(ProductQuerySearchForm form) {
+    public Page<ProductInfoAdminSearch> getProductInfoAdminSearchDto(ProductQuerySearchFormByAdmin form) {
 
         try {
             List<ProductInfoAdminSearch> productInfoAdminSearchList = jdbcTemplate.query(
-                    createQueryGetProductByAdmin(form),
-                    setParamSearchProduct(form),
+                    createGetProductQueryByAdmin(form),
+                    setParamSearchProductByAdmin(form),
                     (rs, rowNum) -> new ProductInfoAdminSearch(
                             rs.getLong("productId"),
                             rs.getString("productName"),
@@ -56,12 +57,12 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
     }
 
     @Override
-    public Page<ProductInfoClientSearch> getProductInfoClientSearchDto(ProductQuerySearchForm form) {
+    public Page<ProductInfoClientSearch> getProductInfoClientSearchDto(ProductQuerySearchFormByClient form) {
 
         try {
             List<ProductInfoClientSearch> productInfoClientSearchList = jdbcTemplate.query(
-                    createQueryGetProductByClient(form),
-                    setParamSearchProduct(form),
+                    createGetProductQueryByClient(form),
+                    setParamSearchProductByClient(form),
                     (rs, rowNum) -> ProductInfoClientSearch.builder()
                             .productId(rs.getLong("productId"))
                             .productName(rs.getString("productName"))
@@ -98,7 +99,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
     }
 
-    private String createQueryGetProductByAdmin(ProductQuerySearchForm form) {
+    private String createGetProductQueryByAdmin(ProductQuerySearchFormByAdmin form) {
 
         String select =
                 """
@@ -176,7 +177,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         return query;
     }
 
-    private String createQueryGetProductByClient(ProductQuerySearchForm form) {
+    private String createGetProductQueryByClient(ProductQuerySearchFormByClient form) {
 
         String select =
                 """
@@ -262,7 +263,47 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         return query;
     }
 
-    private Map<String, Object> setParamSearchProduct(ProductQuerySearchForm form) {
+    private Map<String, Object> setParamSearchProductByAdmin(ProductQuerySearchFormByAdmin form) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        if (Objects.nonNull(form.getCategoryId())) {
+            map.put("categoryId", form.getCategoryId());
+        }
+
+        if (StringUtils.isNotBlank(form.getProductName())) {
+            map.put("productName", form.getProductName());
+        }
+
+        if (Objects.nonNull(form.getMinPrice())) {
+            map.put("minPrice", form.getMinPrice());
+        }
+
+        if (Objects.nonNull(form.getMaxPrice())) {
+            map.put("maxPrice", form.getMaxPrice());
+        }
+
+        if (Objects.nonNull(form.getStatus())) {
+            map.put("status", form.getStatus());
+        }
+
+        if (Objects.nonNull(form.getFeatured())) {
+            map.put("featured", form.getFeatured());
+        }
+
+        if (StringUtils.isNotBlank(form.getFromDate())) {
+            map.put("fromDate", form.getFromDate());
+        }
+
+        if (StringUtils.isNotBlank(form.getToDate())) {
+            String toDate = form.getToDate() + " 23:59:59";
+            map.put("toDate", toDate);
+        }
+
+        return map;
+    }
+
+    private Map<String, Object> setParamSearchProductByClient(ProductQuerySearchFormByClient form) {
 
         Map<String, Object> map = new HashMap<>();
 

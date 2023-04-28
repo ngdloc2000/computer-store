@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class ProductQuerySearchForm {
+public class ProductQuerySearchFormByClient {
     private Long categoryId;
     private String productName;
     private Double minPrice;
