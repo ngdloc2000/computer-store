@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,10 +15,10 @@ public class ProductInfoClientSearch {
     private Long productId;
     private Long categoryId;
     private String productName;
-    private String imageMain;
     private String brand;
     private Long retailPrice;
     private Long latestPrice;
     private Double discount;
     private Integer warranty;
+    private List<String> imageList;
 }

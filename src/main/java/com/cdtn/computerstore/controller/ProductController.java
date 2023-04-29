@@ -60,6 +60,7 @@ public class ProductController {
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
@@ -96,7 +97,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<BaseResponseData> deleteProduct(@RequestParam Long productId) {
 
         try {

@@ -6,6 +6,7 @@ import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByAdmin;
 import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.enums.ProductEnum;
 import com.cdtn.computerstore.exception.StoreException;
+import com.cdtn.computerstore.repository.asset.AssetRepository;
 import com.cdtn.computerstore.util.PageUtil;
 import com.cdtn.computerstore.util.QueryUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.*;
 public class CustomProductRepositoryImpl implements CustomProductRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final AssetRepository assetRepository;
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -36,7 +38,6 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                     (rs, rowNum) -> new ProductInfoAdminSearch(
                             rs.getLong("productId"),
                             rs.getString("productName"),
-                            rs.getString("p.image_main"),
                             ProductEnum.Brand.getNameByValue(rs.getInt("p.brand")),
                             rs.getLong("p.retail_price"),
                             rs.getLong("p.latest_price"),
@@ -46,7 +47,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                             rs.getInt("p.status"),
                             rs.getInt("p.featured"),
                             rs.getInt("p.warranty"),
-                            LocalDateTime.parse(rs.getString("createAt"), dateTimeFormatter)
+                            LocalDateTime.parse(rs.getString("createAt"), dateTimeFormatter),
+                            assetRepository.findAllImageLinkProduct(rs.getLong("productId"))
                     )
             );
 
@@ -66,7 +68,6 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                     (rs, rowNum) -> ProductInfoClientSearch.builder()
                             .productId(rs.getLong("productId"))
                             .productName(rs.getString("productName"))
-                            .imageMain(rs.getString("p.image_main"))
                             .brand(ProductEnum.Brand.getNameByValue(
                                     Objects.isNull(rs.getBigDecimal("p.brand"))
                                             ? null
@@ -90,6 +91,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                                             ? null
                                             : rs.getBigDecimal("p.warranty").intValue()
                             )
+                            .imageList(assetRepository.findAllImageLinkProduct(rs.getLong("productId")))
                             .build()
             );
 
@@ -106,7 +108,6 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                         select p.id          as productId,
                                p.category_id as categoryId,
                                p.name        as productName,
-                               p.image_main,
                                p.brand,
                                p.retail_price,
                                p.latest_price,
@@ -184,7 +185,6 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                         select p.id          as productId,
                                p.category_id as categoryId,
                                p.name        as productName,
-                               p.image_main,
                                p.brand,
                                p.retail_price,
                                p.latest_price,
