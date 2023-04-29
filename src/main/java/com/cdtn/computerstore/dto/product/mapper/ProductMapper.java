@@ -11,6 +11,7 @@ import com.cdtn.computerstore.util.StoreUtil;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -21,7 +22,6 @@ public class ProductMapper {
         return Product.builder()
                 .categoryId(form.getCategoryId())
                 .name(form.getName())
-                .imageMain(form.getImageMain())
                 .brand(ProductEnum.Brand.checkValue(form.getBrand()))
                 .description(form.getDescription())
                 .retailPrice(form.getRetailPrice())
@@ -41,7 +41,6 @@ public class ProductMapper {
 
         product.setCategoryId(form.getCategoryId());
         product.setName(form.getName());
-        product.setImageMain(form.getImageMain());
         product.setBrand(ProductEnum.Brand.checkValue(form.getBrand()));
         product.setDescription(form.getDescription());
         product.setRetailPrice(form.getRetailPrice());
@@ -54,13 +53,14 @@ public class ProductMapper {
         product.setUpdatedAt(LocalDateTime.now());
     }
 
-    public ProductDetail createProductDetail(Product product, Specification specification, Category category) {
+    public ProductDetail createProductDetail(Product product, Specification specification, Category category, List<String> imageLinkProductList) {
 
         return ProductDetail.builder()
                 .productId(product.getId())
+                .categoryId(product.getCategoryId())
                 .categoryName(category.getName())
                 .productName(product.getName())
-                .imageMain(product.getImageMain())
+                .imageList(imageLinkProductList)
                 .brand(ProductEnum.Brand.getNameByValue(product.getBrand()))
                 .retailPrice(product.getRetailPrice())
                 .latestPrice(product.getLatestPrice())
@@ -115,11 +115,5 @@ public class ProductMapper {
                 .laptopConnectionPort(specification.getLaptopConnectionPort())
                 .laptopOutputPort(specification.getLaptopOutputPort())
                 .build();
-    }
-
-    public void updateProductInCart(Product product, Integer productQuantityInCart) {
-
-        product.setQuantity(product.getQuantity() - productQuantityInCart);
-        product.setUpdatedAt(LocalDateTime.now());
     }
 }

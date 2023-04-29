@@ -5,7 +5,6 @@ import com.cdtn.computerstore.dto.order.request.OrderCreationForm;
 import com.cdtn.computerstore.dto.order.response.OrderInfoClientSearch;
 import com.cdtn.computerstore.service.OrderService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,4 +56,14 @@ public class OrderController {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
+
+//    @GetMapping("/detail")
+//    public ResponseEntity<BaseResponseData> getDetail(@RequestParam Long orderId) {
+//
+//        try {
+//
+//        } catch (Exception e) {
+//            return ResponseEntity.ok(new BaseResponseData(200, "Success", e.getMessage()));
+//        }
+//    }
 }

@@ -4,6 +4,9 @@ import com.cdtn.computerstore.exception.StoreException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 @Data
 public class ProductCreationForm {
@@ -13,7 +16,6 @@ public class ProductCreationForm {
     private Long categoryId;
     @NotBlank
     private String name;
-    private String imageMain;
     private Integer brand;
     private String description;
     @NotNull
@@ -23,6 +25,8 @@ public class ProductCreationForm {
     @NotNull
     private Integer featured;
     private Integer warranty;
+    @Length(min = 1)
+    private List<String> imageList;
 
 //    Thông tin bảng Specification
     private Long productId;

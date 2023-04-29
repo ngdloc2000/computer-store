@@ -40,7 +40,6 @@ public class OrderService {
     private final CustomOrderRepositoryImpl customOrderRepository;
 
     private final OrderMapper orderMapper;
-    private final ProductMapper productMapper;
 
     @Transactional
     public Long createOrder(OrderCreationForm form) {
@@ -49,14 +48,18 @@ public class OrderService {
                 .orElseThrow(() -> new StoreException("Giỏ hàng không tồn tại hoặc trạng thái đang không hoạt động"));
         List<CartItemDetail> cartItemDetailList = customCartItemRepository.getItemActiveInCart(cart.getId(), form.getClientId());
 
+        // Trừ số lượng sản phẩm
         List<Product> productList = this.updateProductInCart(cartItemDetailList);
         productRepository.saveAll(productList);
 
+        // Cập nhật giỏ hàng
         cart.setStatus(CartEnum.Status.ORDERED.getValue());
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
 
+        // Tạo order
         Order order = orderRepository.save(orderMapper.createOrder(form, cartItemDetailList));
+        // Tạo order item
         saveOrderItem(order.getId(), cartItemDetailList);
 
         return order.getId();
@@ -141,7 +144,8 @@ public class OrderService {
                 if (item.getItemQuantity() > product.getQuantity()) {
                     throw new StoreException("SL sản phẩm đặt hàng có ID là " + product.getId() + " vượt quá SL tồn kho");
                 }
-                productMapper.updateProductInCart(product, item.getItemQuantity());
+                product.setQuantity(product.getQuantity() - item.getItemQuantity());
+                product.setUpdatedAt(LocalDateTime.now());
                 productList.add(product);
             }
         }
