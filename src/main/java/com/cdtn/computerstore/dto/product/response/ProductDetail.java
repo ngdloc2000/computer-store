@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -13,9 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProductDetail {
     private Long productId;
+    private Long categoryId;
     private String categoryName;
     private String productName;
-    private String imageMain;
+    private List<String> imageList;
     private String brand;
     private Long retailPrice;
     private Long latestPrice;

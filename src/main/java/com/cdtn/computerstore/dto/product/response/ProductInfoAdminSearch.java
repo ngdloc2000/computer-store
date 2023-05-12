@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 public class ProductInfoAdminSearch {
     private Long productId;
     private String productName;
-    private String imageMain;
     private String brand;
     private Long retailPrice;
     private Long latestPrice;
@@ -25,4 +25,5 @@ public class ProductInfoAdminSearch {
     private Integer featured;
     private Integer warranty;
     private LocalDateTime createdAt;
+    private List<String> imageList;
 }

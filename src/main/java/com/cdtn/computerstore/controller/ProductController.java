@@ -2,7 +2,8 @@ package com.cdtn.computerstore.controller;
 
 import com.cdtn.computerstore.dto.base.BaseResponseData;
 import com.cdtn.computerstore.dto.product.request.ProductCreationForm;
-import com.cdtn.computerstore.dto.product.request.ProductQuerySearchForm;
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByAdmin;
+import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByClient;
 import com.cdtn.computerstore.dto.product.response.ProductDetail;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
 import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
@@ -45,7 +46,7 @@ public class ProductController {
 
     @PostMapping("/admin/search")
     public ResponseEntity<BaseResponseData> searchProductByAdmin(
-            @RequestBody @Valid ProductQuerySearchForm form,
+            @RequestBody @Valid ProductQuerySearchFormByAdmin form,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -59,13 +60,14 @@ public class ProductController {
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
 
     @PostMapping("/client/search")
     public ResponseEntity<BaseResponseData> searchProductByClient(
-            @RequestBody @Valid ProductQuerySearchForm form,
+            @RequestBody @Valid ProductQuerySearchFormByClient form,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -95,7 +97,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<BaseResponseData> deleteProduct(@RequestParam Long productId) {
 
         try {
