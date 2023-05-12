@@ -25,7 +25,12 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/auth/login", "/client/registerAccount").permitAll()
+                .requestMatchers(
+                        "/auth/login",
+                        "/client/registerAccount",
+                        "/enum/**",
+                        "/product/detail",
+                        "/product/client/search").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)
