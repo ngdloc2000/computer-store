@@ -30,7 +30,8 @@ public class SecurityConfig {
                         "/client/registerAccount",
                         "/enum/**",
                         "/product/detail",
-                        "/product/client/search").permitAll()
+                        "/product/client/search",
+                        "/category/getAll").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)

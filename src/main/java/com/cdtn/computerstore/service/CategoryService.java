@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -39,7 +40,7 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public Page<Category> getAll(int page, int size, String sort, String order) {
+    public Page<Category> showAll(int page, int size, String sort, String order) {
 
         Pageable pageable = null;
         if (order.equals(Constant.DESC)) {
@@ -49,6 +50,11 @@ public class CategoryService {
         }
 
         return categoryRepository.findAll(Objects.requireNonNull(pageable));
+    }
+
+    public List<Category> getAll() {
+
+        return categoryRepository.findAll();
     }
 
 }

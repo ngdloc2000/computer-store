@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor
@@ -36,7 +38,14 @@ public class CategoryController {
                                                     @RequestParam(defaultValue = "id") String sort,
                                                     @RequestParam(defaultValue = Constant.DESC) String order) {
 
-        Page<Category> categories = categoryService.getAll(page, size, sort, order);
+        Page<Category> categories = categoryService.showAll(page, size, sort, order);
         return ResponseEntity.ok(new BaseResponseData(200, "Success", categories.getContent()));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<BaseResponseData> getAll() {
+
+        List<Category> categories = categoryService.getAll();
+        return ResponseEntity.ok(new BaseResponseData(200, "Success", categories));
     }
 }
