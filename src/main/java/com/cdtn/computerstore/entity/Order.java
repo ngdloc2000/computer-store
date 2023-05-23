@@ -23,6 +23,10 @@ public class Order {
     private String consigneeName;
     private String consigneePhoneNumber;
     private String deliveryAddress;
+    private String transactionsId;
+    private Integer paymentMethod;
+    private String paymentHash;
+    private String statusOrder;
     private LocalDateTime createAt;
     private LocalDateTime canceledAt;
     private LocalDateTime completedAt;

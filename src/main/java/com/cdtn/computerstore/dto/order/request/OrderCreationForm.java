@@ -16,4 +16,10 @@ public class OrderCreationForm {
     private String consigneePhoneNumber;
     @NotBlank
     private String deliveryAddress;
+
+    private String transactionsId;
+    private Integer paymentMethod;
+    private String paymentHash;
+    @NotBlank
+    private String statusOrder;
 }
