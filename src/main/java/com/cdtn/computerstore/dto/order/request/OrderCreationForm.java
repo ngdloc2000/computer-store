@@ -17,9 +17,5 @@ public class OrderCreationForm {
     @NotBlank
     private String deliveryAddress;
 
-    private String transactionsId;
     private Integer paymentMethod;
-    private String paymentHash;
-    @NotBlank
-    private String statusOrder;
 }

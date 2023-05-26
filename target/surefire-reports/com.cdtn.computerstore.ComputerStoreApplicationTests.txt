@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.cdtn.computerstore.ComputerStoreApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.612 s - in com.cdtn.computerstore.ComputerStoreApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.883 s - in com.cdtn.computerstore.ComputerStoreApplicationTests

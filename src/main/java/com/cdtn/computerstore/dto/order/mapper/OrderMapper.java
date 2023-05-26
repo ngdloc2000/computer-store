@@ -26,10 +26,7 @@ public class OrderMapper {
                 .consigneeName(form.getConsigneeName())
                 .consigneePhoneNumber(form.getConsigneePhoneNumber())
                 .deliveryAddress(form.getDeliveryAddress())
-                .transactionsId(form.getTransactionsId())
-                .paymentHash(form.getPaymentHash())
                 .paymentMethod(form.getPaymentMethod())
-                .statusOrder(form.getStatusOrder())
                 .createAt(LocalDateTime.now())
                 .build();
     }
