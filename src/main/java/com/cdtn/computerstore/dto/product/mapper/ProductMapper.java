@@ -23,6 +23,7 @@ public class ProductMapper {
                 .categoryId(form.getCategoryId())
                 .name(form.getName())
                 .brand(ProductEnum.Brand.checkValue(form.getBrand()))
+                .shortDescription(form.getShortDescription())
                 .description(form.getDescription())
                 .retailPrice(form.getRetailPrice())
                 .latestPrice(Objects.isNull(form.getLatestPrice()) ? form.getRetailPrice() : form.getLatestPrice())
@@ -42,6 +43,7 @@ public class ProductMapper {
         product.setCategoryId(form.getCategoryId());
         product.setName(form.getName());
         product.setBrand(ProductEnum.Brand.checkValue(form.getBrand()));
+        product.setShortDescription(form.getShortDescription());
         product.setDescription(form.getDescription());
         product.setRetailPrice(form.getRetailPrice());
         product.setLatestPrice(Objects.isNull(form.getLatestPrice()) ? form.getRetailPrice() : form.getLatestPrice());
@@ -62,6 +64,8 @@ public class ProductMapper {
                 .productName(product.getName())
                 .imageList(imageLinkProductList)
                 .brand(ProductEnum.Brand.getNameByValue(product.getBrand()))
+                .shortDescription(product.getShortDescription())
+                .description(product.getDescription())
                 .retailPrice(product.getRetailPrice())
                 .latestPrice(product.getLatestPrice())
                 .discount(product.getDiscount())

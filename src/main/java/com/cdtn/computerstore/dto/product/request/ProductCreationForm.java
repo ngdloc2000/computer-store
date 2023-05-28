@@ -17,6 +17,7 @@ public class ProductCreationForm {
     @NotBlank
     private String name;
     private Integer brand;
+    private String shortDescription;
     private String description;
     @NotNull
     private Long retailPrice;
@@ -25,7 +26,6 @@ public class ProductCreationForm {
     @NotNull
     private Integer featured;
     private Integer warranty;
-    @Length(min = 1)
     private List<String> imageList;
 
 //    Thông tin bảng Specification

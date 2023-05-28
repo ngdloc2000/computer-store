@@ -2,6 +2,7 @@ package com.cdtn.computerstore.repository.cartItem;
 
 import com.cdtn.computerstore.dto.cart.response.CartItemDetail;
 import com.cdtn.computerstore.exception.StoreException;
+import com.cdtn.computerstore.repository.asset.AssetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class CustomCartItemRepositoryImpl implements CustomCartItemRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final AssetRepository assetRepository;
 
     @Override
     public List<CartItemDetail> getItemActiveInCart(Long cartId, Long clientId) {
@@ -24,7 +26,6 @@ public class CustomCartItemRepositoryImpl implements CustomCartItemRepository {
                 """
                         select ci.product_id                  as productId,
                                p.name                         as productName,
-                               p.image_main                   as productImageMain,
                                ci.quantity                    as itemQuantity,
                                p.latest_price                 as productLatestPrice,
                                (ci.quantity * p.latest_price) as totalPricePerProduct
@@ -43,7 +44,7 @@ public class CustomCartItemRepositoryImpl implements CustomCartItemRepository {
                     (rs, rowNum) -> CartItemDetail.builder()
                             .productId(rs.getLong("productId"))
                             .productName(rs.getString("productName"))
-                            .productImageMain(rs.getString("productImageMain"))
+                            .productImage(assetRepository.findAllImageLinkProduct(rs.getLong("productId")))
                             .itemQuantity(rs.getInt("itemQuantity"))
                             .productLatestPrice(rs.getLong("productLatestPrice"))
                             .totalPricePerProduct(rs.getLong("totalPricePerProduct"))

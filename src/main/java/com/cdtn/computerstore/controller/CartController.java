@@ -5,6 +5,8 @@ import com.cdtn.computerstore.dto.cart.response.CartDetail;
 import com.cdtn.computerstore.service.CartService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ public class CartController {
 
     private final CartService cartService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
+
     @PostMapping("/addProduct")
     public ResponseEntity<BaseResponseData> addProduct(@RequestParam @NotNull Long clientId,
                                                        @RequestParam @NotNull Long productId) {
@@ -26,6 +30,7 @@ public class CartController {
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
         } catch (Exception e) {
+            LOGGER.error("Exception when /cart/addProduct", e);
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
@@ -53,6 +58,7 @@ public class CartController {
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", cartDetail));
         } catch (Exception e) {
+            LOGGER.error("Exception when /cart/getCartDetail", e);
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }

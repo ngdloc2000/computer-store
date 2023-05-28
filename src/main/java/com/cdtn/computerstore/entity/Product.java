@@ -19,6 +19,7 @@ public class Product {
     private Long categoryId;
     private String name;
     private Integer brand;
+    private String shortDescription;
     private String description;
     private Long retailPrice;
     private Long latestPrice;

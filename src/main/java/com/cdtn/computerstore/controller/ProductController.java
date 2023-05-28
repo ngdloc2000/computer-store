@@ -10,12 +10,11 @@ import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
 import com.cdtn.computerstore.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -56,7 +55,7 @@ public class ProductController {
         }
 
         try {
-            List<ProductInfoAdminSearch> productList = productService.getProductInfoAdminSearchList(form);
+            Page<ProductInfoAdminSearch> productList = productService.getProductInfoAdminSearchList(form);
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
         } catch (Exception e) {
@@ -77,7 +76,7 @@ public class ProductController {
         }
 
         try {
-            List<ProductInfoClientSearch> productList = productService.getProductInfoClientSearchList(form);
+            Page<ProductInfoClientSearch> productList = productService.getProductInfoClientSearchList(form);
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", productList));
         } catch (Exception e) {
