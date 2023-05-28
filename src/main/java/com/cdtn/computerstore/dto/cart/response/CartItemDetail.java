@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CartItemDetail {
     private Long productId;
     private String productName;
-    private String productImageMain;
+    private List<String> productImage;
     private Integer itemQuantity;
     private Long productLatestPrice;
     private Long totalPricePerProduct;

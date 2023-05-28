@@ -19,6 +19,8 @@ public class ProductDetail {
     private String productName;
     private List<String> imageList;
     private String brand;
+    private String shortDescription;
+    private String description;
     private Long retailPrice;
     private Long latestPrice;
     private Double discount;
