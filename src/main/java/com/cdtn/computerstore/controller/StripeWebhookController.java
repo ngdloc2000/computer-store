@@ -1,9 +1,11 @@
 package com.cdtn.computerstore.controller;
 
+import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,18 @@ import java.util.Objects;
 
 
 @RestController
-@RequestMapping("/webhooks/stripe")
+@RequestMapping("/webhook/stripe")
 public class StripeWebhookController {
+    @Value("${stripe.api.key}")
+    private String stripeApiKey;
 
     @PostMapping
     public ResponseEntity<?> handleWebhookEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String signature) {
+        Stripe.apiKey = stripeApiKey;
         Event event = null;
         try {
-            event = Webhook.constructEvent(payload, signature, "whsec_0mLarkK5Hxrw6lWIqi4D0iKbf4Foac5x");
+//            event = Webhook.constructEvent(payload, signature, "whsec_0mLarkK5Hxrw6lWIqi4D0iKbf4Foac5x");
+            event = Webhook.constructEvent(payload, signature, "whsec_6c342954c1f85f2bd43f84409b92f976d2e87e7e5c0e97a63fed37e7d065fc63");
         } catch (SignatureVerificationException e) {
             System.out.println("Failed signature verification");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -49,6 +55,7 @@ public class StripeWebhookController {
                     // Fulfill the purchase
                     //set status "PENDING -> SUCCESS"
                     System.out.println("success");
+                    System.out.println(session.getClientReferenceId());
                 }
                 // ...
                 break;
