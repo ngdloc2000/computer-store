@@ -47,7 +47,8 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
                                     : LocalDateTime.parse(rs.getString("canceledAt"), dateTimeFormatter),
                             StringUtils.isBlank(rs.getString("completedAt"))
                                     ? null
-                                    : LocalDateTime.parse(rs.getString("completedAt"), dateTimeFormatter)
+                                    : LocalDateTime.parse(rs.getString("completedAt"), dateTimeFormatter),
+                            rs.getString("checkoutSessionUrl")
                     )
             );
 
@@ -192,7 +193,8 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
                        o.status             as status,
                        o.create_at          as createAt,
                        o.canceled_at        as canceledAt,
-                       o.completed_at       as completedAt
+                       o.completed_at       as completedAt,
+                       o.checkout_session_url as checkoutSessionUrl
                 from orders o \s""";
 
         List<String> whereList = new ArrayList<>();

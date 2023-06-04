@@ -67,6 +67,14 @@ public class OrderService {
     }
 
     @Transactional
+    public void createCheckoutSessionUrlOrder(Long orderId, String sessionUrl) {
+            Order order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new StoreException("không tìm thấy Order với ID: " + orderId));
+            order.setCheckoutSessionUrl(sessionUrl);
+            orderRepository.save(order);
+    }
+
+    @Transactional
     public void payment(boolean isPaid, Long orderId) {
 
         if (isPaid) {

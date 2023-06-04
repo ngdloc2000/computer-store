@@ -1,5 +1,6 @@
 package com.cdtn.computerstore.controller;
 
+import com.cdtn.computerstore.service.OrderService;
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
@@ -18,6 +19,12 @@ import java.util.Objects;
 public class StripeWebhookController {
     @Value("${stripe.api.key}")
     private String stripeApiKey;
+
+    private final OrderService orderService;
+
+    public StripeWebhookController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping
     public ResponseEntity<?> handleWebhookEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String signature) {
@@ -56,6 +63,8 @@ public class StripeWebhookController {
                     //set status "PENDING -> SUCCESS"
                     System.out.println("success");
                     System.out.println(session.getClientReferenceId());
+                    long orderId = Long.parseLong(session.getClientReferenceId());
+                    orderService.payment(true, orderId);
                 }
                 // ...
                 break;

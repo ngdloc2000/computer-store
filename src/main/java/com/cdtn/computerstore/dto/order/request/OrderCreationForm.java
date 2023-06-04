@@ -17,5 +17,5 @@ public class OrderCreationForm {
     @NotBlank
     private String deliveryAddress;
 
-    private Integer paymentMethod;
+    private String checkoutSessionUrl;
 }
