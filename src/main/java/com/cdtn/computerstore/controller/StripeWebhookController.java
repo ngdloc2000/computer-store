@@ -31,8 +31,8 @@ public class StripeWebhookController {
         Stripe.apiKey = stripeApiKey;
         Event event = null;
         try {
-//            event = Webhook.constructEvent(payload, signature, "whsec_0mLarkK5Hxrw6lWIqi4D0iKbf4Foac5x");
-            event = Webhook.constructEvent(payload, signature, "whsec_6c342954c1f85f2bd43f84409b92f976d2e87e7e5c0e97a63fed37e7d065fc63");
+            event = Webhook.constructEvent(payload, signature, "whsec_0mLarkK5Hxrw6lWIqi4D0iKbf4Foac5x");
+//            event = Webhook.constructEvent(payload, signature, "whsec_6c342954c1f85f2bd43f84409b92f976d2e87e7e5c0e97a63fed37e7d065fc63");
         } catch (SignatureVerificationException e) {
             System.out.println("Failed signature verification");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
