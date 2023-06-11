@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
-        return List.of(new SimpleGrantedAuthority(authorities.toString()));
+        return authorities;
     }
 
     @Override
