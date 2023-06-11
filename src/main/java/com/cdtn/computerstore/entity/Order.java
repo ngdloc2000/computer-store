@@ -23,7 +23,6 @@ public class Order {
     private String consigneeName;
     private String consigneePhoneNumber;
     private String deliveryAddress;
-    private Integer paymentMethod;
     private LocalDateTime createAt;
     private LocalDateTime canceledAt;
     private LocalDateTime completedAt;
