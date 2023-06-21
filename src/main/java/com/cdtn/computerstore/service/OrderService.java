@@ -118,16 +118,17 @@ public class OrderService {
         return orderList;
     }
 
-    public List<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
+    public Page<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
                                                          String fromDate,
                                                          String toDate,
+                                                         String search,
                                                          Integer page,
                                                          Integer size) {
 
-        Page<OrderInfoAdminSearch> orderPage = customOrderRepository.getAllOrderByAdmin(orderStatus, fromDate, toDate, page, size);
+        Page<OrderInfoAdminSearch> orderPage = customOrderRepository.getAllOrderByAdmin(orderStatus, fromDate, search, toDate, page, size);
         List<OrderInfoAdminSearch> orderList = orderPage.getContent();
 
-        return orderList;
+        return orderPage;
     }
 
     public OrderDetail getOrderDetail(Long orderId) {

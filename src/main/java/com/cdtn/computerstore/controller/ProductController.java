@@ -7,6 +7,8 @@ import com.cdtn.computerstore.dto.product.request.ProductQuerySearchFormByClient
 import com.cdtn.computerstore.dto.product.response.ProductDetail;
 import com.cdtn.computerstore.dto.product.response.ProductInfoAdminSearch;
 import com.cdtn.computerstore.dto.product.response.ProductInfoClientSearch;
+import com.cdtn.computerstore.entity.Comment;
+import com.cdtn.computerstore.service.CommentService;
 import com.cdtn.computerstore.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -23,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     private final ProductService productService;
-
+    private final CommentService commentService;
     @PostMapping("/create")
     public ResponseEntity<BaseResponseData> createProduct(@RequestBody @Valid ProductCreationForm creationForm,
                                                           BindingResult bindingResult) {
@@ -106,4 +110,27 @@ public class ProductController {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
     }
+
+    @GetMapping("/comments")
+    public ResponseEntity<?> getCommentByProductId(@RequestParam Long productId) {
+
+        try {
+            List<Comment> commentList = commentService.getCommentByProductId(productId);
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", commentList));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/create-comment")
+    public ResponseEntity<?> createComment(@RequestBody @Valid Comment comment) {
+
+        try {
+            commentService.createComment(comment);
+            return ResponseEntity.ok(new BaseResponseData(200, "Success", comment));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
+        }
+    }
+
 }

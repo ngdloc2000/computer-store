@@ -36,7 +36,7 @@ public class CartService {
     @Transactional
     public void createCartWhenPickProduct(Long clientId, Long productId) {
 
-        if (!clientRepository.existsById(clientId)) {
+        if (!clientRepository.findByUserId(clientId).isPresent()) {
             throw new StoreException("Client is not exists");
         }
 

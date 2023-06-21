@@ -62,13 +62,14 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
     public Page<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
                                                          String fromDate,
                                                          String toDate,
+                                                         String search,
                                                          Integer page,
                                                          Integer size) {
 
         try {
             List<OrderInfoAdminSearch> orderList = jdbcTemplate.query(
-                    createGetAllOrderQueryByAdminQuery(orderStatus, fromDate, toDate),
-                    setParameterGetAllOrderQueryByAdmin(orderStatus, fromDate, toDate),
+                    createGetAllOrderQueryByAdminQuery(orderStatus, fromDate, toDate, search),
+                    setParameterGetAllOrderQueryByAdmin(orderStatus, fromDate, toDate, search),
                     (rs, rowNum) -> new OrderInfoAdminSearch(
                             rs.getLong("orderId"),
                             rs.getLong("totalPrice"),
@@ -221,7 +222,8 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
 
     private String createGetAllOrderQueryByAdminQuery(Integer orderStatus,
                                                       String fromDate,
-                                                      String toDate) {
+                                                      String toDate,
+                                                      String search) {
 
         String select = """
                 select o.id                 as orderId,
@@ -235,12 +237,15 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
                        o.canceled_at        as canceledAt,
                        o.completed_at       as completedAt,
                        c.full_name          as clientName
-                from orders o \s""";
+                from orders o join client c on c.user_id = o.client_id \s""";
 
         List<String> whereList = new ArrayList<>();
 
         if (Objects.nonNull(orderStatus)) {
             whereList.add("o.status = :orderStatus ");
+        }
+        if (StringUtils.isNotBlank(search)) {
+            whereList.add("c.full_name like :search or o.id like :search ");
         }
 
         if (StringUtils.isNotBlank(fromDate) && StringUtils.isNotBlank(toDate)) {
@@ -307,12 +312,16 @@ public class CustomOrderRepositoryImpl implements CustomOrderRepository {
 
     private Map<String, Object> setParameterGetAllOrderQueryByAdmin(Integer orderStatus,
                                                                     String fromDate,
-                                                                    String toDate) {
+                                                                    String toDate,
+                                                                    String search) {
 
         Map<String, Object> map = new HashMap<>();
 
         if (Objects.nonNull(orderStatus)) {
             map.put("orderStatus", orderStatus);
+        }
+        if (StringUtils.isNotBlank(search)) {
+            map.put("search", "%" + search + "%");
         }
 
         if (StringUtils.isNotBlank(fromDate)) {
