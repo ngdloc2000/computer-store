@@ -62,7 +62,7 @@ public class CartService {
     }
 
     @Transactional
-    public void updateProductInCartWhenRemoveProduct(Long cartId, Long productId) {
+    public void updateProductInCartWhenRemoveProduct(Long cartId, Long productId, Integer deleteAll) {
 
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new StoreException("Cart not found by id: " + cartId));
@@ -72,7 +72,7 @@ public class CartService {
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
 
-        cartMapper.updateCartItemWhenRemoveProduct(cartItem);
+        cartMapper.updateCartItemWhenRemoveProduct(cartItem, deleteAll);
         cartItemRepository.save(cartItem);
     }
 

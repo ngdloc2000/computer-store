@@ -53,7 +53,7 @@ public class CheckoutStripeController {
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setClientReferenceId(orderId)
                 .addAllLineItem(lineItems)
-                .setSuccessUrl("https://quanna.shop/account/orders")
+                .setSuccessUrl("https://quanna.shop/account/orders?status=success")
                 .setCancelUrl("https://quanna.shop/account/orders")
                 .build();
 //        SessionCreateParams params = SessionCreateParams.builder()

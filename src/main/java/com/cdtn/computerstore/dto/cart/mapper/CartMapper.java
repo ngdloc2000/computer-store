@@ -50,9 +50,8 @@ public class CartMapper {
         cartItem.setUpdatedAt(LocalDateTime.now());
     }
 
-    public void updateCartItemWhenRemoveProduct(CartItem cartItem) {
-
-        if (cartItem.getQuantity() == 1) {
+    public void updateCartItemWhenRemoveProduct(CartItem cartItem, Integer deleteAll) {
+        if (cartItem.getQuantity() == 1 || deleteAll == 1) {
             cartItem.setQuantity(0);
             cartItem.setStatus(CartItemEnum.Status.INACTIVE.getValue());
         } else {

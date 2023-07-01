@@ -19,5 +19,6 @@ public class Comment {
     private String clientName;
     private Long productId;
     private String content;
+    private Integer rate;
     private LocalDateTime createdAt;
 }
