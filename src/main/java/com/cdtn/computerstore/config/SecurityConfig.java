@@ -31,7 +31,11 @@ public class SecurityConfig {
                         "/enum/**",
                         "/product/detail",
                         "/product/client/search",
-                        "/category/getAll").permitAll()
+                        "/category/getAll",
+                        "/create-checkout-session",
+                        "/webhook/stripe",
+                        "/product/comments"
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationProvider(authenticationProvider)

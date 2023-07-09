@@ -51,6 +51,7 @@ public class AuthService {
                     .token(jwtToken)
                     .refreshToken(jwtRefreshToken)
                     .userId(user.get().getId())
+                    .role(user.get().getRole())
                     .build();
 
             return new BaseResponseData(200, "Success", response);

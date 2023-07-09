@@ -24,7 +24,14 @@ public class ProductEnum {
         PANASONIC(11, "Panasonic"),
         TOSHIBA(12, "Toshiba"),
         AMD(13, "AMD"),
-        INTEL(14, "INTEL");
+        INTEL(14, "INTEL"),
+        CORSAIR(15, "Corsair"),
+        AKKO(16, "Akko"),
+        FLESPORT(17, "FL-Esports"),
+        RAZER(18, "Razer"),
+        LOGITECH(19, "Logitech"),
+        GSKILL(20, "G-Skill"),
+        STEELSERIES(21, "SteelSeries");
 
         private final Integer value;
         private final String name;
@@ -75,7 +82,10 @@ public class ProductEnum {
         RED(1, "Đỏ"),
         WHITE(2, "Trắng"),
         BLACK(3, "Đen"),
-        BROWN(4, "Nâu");
+        BROWN(4, "Nâu"),
+        PINK(5, "Hồng"),
+        BLUE(6, "Xanh dương"),
+        GREY(7, "Xám");
 
         private final Integer value;
         private final String name;

@@ -16,4 +16,6 @@ public class OrderCreationForm {
     private String consigneePhoneNumber;
     @NotBlank
     private String deliveryAddress;
+
+    private String checkoutSessionUrl;
 }

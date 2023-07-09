@@ -68,7 +68,9 @@ public class SpecificationEnum {
         RYZEN_3(6, "Ryzen 3"),
         RYZEN_5(7, "Ryzen 5"),
         RYZEN_7(8, "Ryzen 7"),
-        RYZEN_9(9, "Ryzen 9");
+        RYZEN_9(9, "Ryzen 9"),
+        M1(10, "M1"),
+        M2(11, "M2");
 
         private final Integer value;
         private final String name;

@@ -12,7 +12,7 @@ public interface CustomOrderRepository {
 
     Page<OrderInfoClientSearch> getAllOrderByClient(Long userId, Integer orderStatus, Integer page, Integer size);
 
-    Page<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus, String fromDate, String toDate, Integer page, Integer size);
+    Page<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus, String fromDate, String search, String toDate, Integer page, Integer size);
 
     OrderDetail getOrderDetailByOrderId(Long orderId);
 

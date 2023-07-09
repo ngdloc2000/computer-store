@@ -37,11 +37,12 @@ public class CartController {
 
     @PostMapping("/removeProduct")
     public ResponseEntity<BaseResponseData> removeProduct(@RequestParam @NotNull Long cartId,
-                                                          @RequestParam @NotNull Long productId) {
+                                                          @RequestParam @NotNull Long productId,
+                                                          @RequestParam(required = false, defaultValue = "0") Integer deleteAll) {
 
         try {
 
-            cartService.updateProductInCartWhenRemoveProduct(cartId, productId);
+            cartService.updateProductInCartWhenRemoveProduct(cartId, productId, deleteAll);
 
             return ResponseEntity.ok(new BaseResponseData(200, "Success", null));
         } catch (Exception e) {

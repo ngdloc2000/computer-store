@@ -67,6 +67,14 @@ public class OrderService {
     }
 
     @Transactional
+    public void createCheckoutSessionUrlOrder(Long orderId, String sessionUrl) {
+            Order order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new StoreException("không tìm thấy Order với ID: " + orderId));
+            order.setCheckoutSessionUrl(sessionUrl);
+            orderRepository.save(order);
+    }
+
+    @Transactional
     public void payment(boolean isPaid, Long orderId) {
 
         if (isPaid) {
@@ -110,16 +118,17 @@ public class OrderService {
         return orderList;
     }
 
-    public List<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
+    public Page<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
                                                          String fromDate,
                                                          String toDate,
+                                                         String search,
                                                          Integer page,
                                                          Integer size) {
 
-        Page<OrderInfoAdminSearch> orderPage = customOrderRepository.getAllOrderByAdmin(orderStatus, fromDate, toDate, page, size);
+        Page<OrderInfoAdminSearch> orderPage = customOrderRepository.getAllOrderByAdmin(orderStatus, fromDate, search, toDate, page, size);
         List<OrderInfoAdminSearch> orderList = orderPage.getContent();
 
-        return orderList;
+        return orderPage;
     }
 
     public OrderDetail getOrderDetail(Long orderId) {

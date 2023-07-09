@@ -27,6 +27,7 @@ public class OrderMapper {
                 .consigneePhoneNumber(form.getConsigneePhoneNumber())
                 .deliveryAddress(form.getDeliveryAddress())
                 .createAt(LocalDateTime.now())
+                .checkoutSessionUrl(form.getCheckoutSessionUrl())
                 .build();
     }
 }

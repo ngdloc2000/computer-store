@@ -19,4 +19,6 @@ public class OrderInfoClientSearch {
     private LocalDateTime createAt;
     private LocalDateTime canceledAt;
     private LocalDateTime completedAt;
+
+    private String checkoutSessionUrl;
 }

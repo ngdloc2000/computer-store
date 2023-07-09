@@ -65,8 +65,11 @@ public class ProductService {
             specificationMapper.updateSpecification(specification, form);
 
             assetList = assetRepository.findAllByProductId(form.getProductId());
-            assetRepository.deleteAll(assetList);
-            assetRepository.saveAll(assetMapper.createAsset(form.getProductId(), form.getImageList()));
+            if(assetList.size() > 0) {
+                assetRepository.deleteAll(assetList);
+            }
+            assetList = assetMapper.createAsset(form.getProductId(), form.getImageList());
+//            assetRepository.saveAll(assetMapper.createAsset(form.getProductId(), form.getImageList()));
         }
 
         specificationRepository.save(specification);

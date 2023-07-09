@@ -26,4 +26,6 @@ public class Order {
     private LocalDateTime createAt;
     private LocalDateTime canceledAt;
     private LocalDateTime completedAt;
+    @Column(columnDefinition = "TEXT")
+    private String checkoutSessionUrl;
 }
