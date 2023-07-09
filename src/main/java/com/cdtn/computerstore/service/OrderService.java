@@ -3,8 +3,9 @@ package com.cdtn.computerstore.service;
 import com.cdtn.computerstore.dto.cart.response.CartItemDetail;
 import com.cdtn.computerstore.dto.order.mapper.OrderMapper;
 import com.cdtn.computerstore.dto.order.request.OrderCreationForm;
+import com.cdtn.computerstore.dto.order.response.OrderDetail;
+import com.cdtn.computerstore.dto.order.response.OrderInfoAdminSearch;
 import com.cdtn.computerstore.dto.order.response.OrderInfoClientSearch;
-import com.cdtn.computerstore.dto.product.mapper.ProductMapper;
 import com.cdtn.computerstore.entity.Cart;
 import com.cdtn.computerstore.entity.Order;
 import com.cdtn.computerstore.entity.OrderItem;
@@ -107,6 +108,22 @@ public class OrderService {
         List<OrderInfoClientSearch> orderList = orderPage.getContent();
 
         return orderList;
+    }
+
+    public List<OrderInfoAdminSearch> getAllOrderByAdmin(Integer orderStatus,
+                                                         String fromDate,
+                                                         String toDate,
+                                                         Integer page,
+                                                         Integer size) {
+
+        Page<OrderInfoAdminSearch> orderPage = customOrderRepository.getAllOrderByAdmin(orderStatus, fromDate, toDate, page, size);
+        List<OrderInfoAdminSearch> orderList = orderPage.getContent();
+
+        return orderList;
+    }
+
+    public OrderDetail getOrderDetail(Long orderId) {
+        return customOrderRepository.getOrderDetailByOrderId(orderId);
     }
 
     private void updateQuantitySoldProductWhenPaymentSuccess(Long orderId) {

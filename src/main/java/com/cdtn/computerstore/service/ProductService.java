@@ -73,20 +73,18 @@ public class ProductService {
         assetRepository.saveAll(assetList);
     }
 
-    public List<ProductInfoAdminSearch> getProductInfoAdminSearchList(ProductQuerySearchFormByAdmin form) {
+    public Page<ProductInfoAdminSearch> getProductInfoAdminSearchList(ProductQuerySearchFormByAdmin form) {
 
         Page<ProductInfoAdminSearch> productInfoPage = customProductRepository.getProductInfoAdminSearchDto(form);
-        List<ProductInfoAdminSearch> productInfoList = productInfoPage.getContent();
 
-        return productInfoList;
+        return productInfoPage;
     }
 
-    public List<ProductInfoClientSearch> getProductInfoClientSearchList(ProductQuerySearchFormByClient form) {
+    public Page<ProductInfoClientSearch> getProductInfoClientSearchList(ProductQuerySearchFormByClient form) {
 
         Page<ProductInfoClientSearch> productInfoPage = customProductRepository.getProductInfoClientSearchDto(form);
-        List<ProductInfoClientSearch> productInfoList = productInfoPage.getContent();
 
-        return productInfoList;
+        return productInfoPage;
     }
 
     public ProductDetail findProductDetailByProductId(Long productId) {

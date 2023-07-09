@@ -128,7 +128,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (StringUtils.isNotBlank(form.getProductName())) {
-            whereList.add("p.name like '%:productName%' ");
+            whereList.add("p.name like :productName ");
         }
 
         if (Objects.nonNull(form.getMinPrice()) && Objects.nonNull(form.getMaxPrice())) {
@@ -204,7 +204,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (StringUtils.isNotBlank(form.getProductName())) {
-            whereList.add("p.name like '%:productName%' ");
+            whereList.add("p.name like :productName ");
         }
 
         if (Objects.nonNull(form.getMinPrice()) && Objects.nonNull(form.getMaxPrice())) {
@@ -272,7 +272,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (StringUtils.isNotBlank(form.getProductName())) {
-            map.put("productName", form.getProductName());
+            map.put("productName", "%" + form.getProductName() + "%");
         }
 
         if (Objects.nonNull(form.getMinPrice())) {
@@ -312,7 +312,7 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
         }
 
         if (StringUtils.isNotBlank(form.getProductName())) {
-            map.put("productName", form.getProductName());
+            map.put("productName", "%" + form.getProductName() + "%");
         }
 
         if (Objects.nonNull(form.getMinPrice())) {

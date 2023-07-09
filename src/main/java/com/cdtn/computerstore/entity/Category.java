@@ -5,8 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
@@ -22,4 +21,9 @@ public class Category {
     private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Category(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
