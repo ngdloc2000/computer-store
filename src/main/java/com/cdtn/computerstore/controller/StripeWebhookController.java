@@ -1,11 +1,15 @@
 package com.cdtn.computerstore.controller;
 
+import com.cdtn.computerstore.dto.EmailSender;
+import com.cdtn.computerstore.dto.order.response.OrderDetail;
+import com.cdtn.computerstore.service.MailServiceImpl;
 import com.cdtn.computerstore.service.OrderService;
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.Webhook;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +25,15 @@ public class StripeWebhookController {
     private String stripeApiKey;
 
     private final OrderService orderService;
+    private final MailServiceImpl mailService;
 
-    public StripeWebhookController(OrderService orderService) {
+    public StripeWebhookController(OrderService orderService, MailServiceImpl mailService) {
         this.orderService = orderService;
+        this.mailService = mailService;
     }
 
     @PostMapping
-    public ResponseEntity<?> handleWebhookEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String signature) {
+    public ResponseEntity<?> handleWebhookEvent(@RequestBody String payload, @RequestHeader("Stripe-Signature") String signature) throws MessagingException {
         Stripe.apiKey = stripeApiKey;
         Event event = null;
         try {
@@ -65,6 +71,12 @@ public class StripeWebhookController {
                     System.out.println(session.getClientReferenceId());
                     long orderId = Long.parseLong(session.getClientReferenceId());
                     orderService.payment(true, orderId);
+                    OrderDetail orderDetail = orderService.getOrderDetail(orderId);
+                    EmailSender emailSender = null;
+                    emailSender.setRecipientEmail(session.getCustomerDetails().getEmail());
+                    emailSender.setFullName(orderDetail.getConsigneeName());
+                    mailService.sendEmail(emailSender);
+
                 }
                 // ...
                 break;

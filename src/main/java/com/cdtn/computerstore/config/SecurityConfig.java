@@ -33,7 +33,8 @@ public class SecurityConfig {
                         "/product/client/search",
                         "/category/getAll",
                         "/create-checkout-session",
-                        "/webhook/stripe"
+                        "/webhook/stripe",
+                        "/product/comments"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()

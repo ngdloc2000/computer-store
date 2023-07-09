@@ -34,12 +34,12 @@ public class CategoryController {
 
     @GetMapping("/showAll")
     public ResponseEntity<BaseResponseData> showAll(@RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "5") Integer size,
+                                                    @RequestParam(defaultValue = "10") Integer size,
                                                     @RequestParam(defaultValue = "id") String sort,
                                                     @RequestParam(defaultValue = Constant.DESC) String order) {
 
         Page<Category> categories = categoryService.showAll(page, size, sort, order);
-        return ResponseEntity.ok(new BaseResponseData(200, "Success", categories.getContent()));
+        return ResponseEntity.ok(new BaseResponseData(200, "Success", categories));
     }
 
     @GetMapping("/getAll")

@@ -93,7 +93,11 @@
             <artifactId>stripe-java</artifactId>
             <version>22.20.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
