@@ -76,7 +76,7 @@ public class StripeWebhookController {
                     emailSender.setRecipientEmail(session.getCustomerDetails().getEmail());
                     emailSender.setFullName(orderDetail.getConsigneeName());
                     mailService.sendEmail(emailSender);
-
+//
                 }
                 // ...
                 break;
