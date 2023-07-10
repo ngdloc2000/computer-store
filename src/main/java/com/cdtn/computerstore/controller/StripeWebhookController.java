@@ -72,9 +72,13 @@ public class StripeWebhookController {
                     long orderId = Long.parseLong(session.getClientReferenceId());
                     orderService.payment(true, orderId);
                     OrderDetail orderDetail = orderService.getOrderDetail(orderId);
-                    EmailSender emailSender = null;
+                    EmailSender emailSender = new EmailSender();
                     emailSender.setRecipientEmail(session.getCustomerDetails().getEmail());
+                    emailSender.setOrderId(orderId);
                     emailSender.setFullName(orderDetail.getConsigneeName());
+                    emailSender.setDeliveryAddress(orderDetail.getDeliveryAddress());
+                    emailSender.setTotalPrice(orderDetail.getTotal());
+                    emailSender.setOrderItemDetailList(orderDetail.getOrderItemDetailList());
                     mailService.sendEmail(emailSender);
 //
                 }

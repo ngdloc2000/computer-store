@@ -1,11 +1,14 @@
 package com.cdtn.computerstore.controller;
 
+import com.cdtn.computerstore.dto.EmailSender;
 import com.cdtn.computerstore.dto.base.BaseResponseData;
 import com.cdtn.computerstore.dto.order.request.OrderCreationForm;
 import com.cdtn.computerstore.dto.order.response.OrderDetail;
 import com.cdtn.computerstore.dto.order.response.OrderInfoAdminSearch;
 import com.cdtn.computerstore.dto.order.response.OrderInfoClientSearch;
+import com.cdtn.computerstore.service.MailServiceImpl;
 import com.cdtn.computerstore.service.OrderService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final MailServiceImpl mailService;
 
     @PostMapping("/create")
     public ResponseEntity<BaseResponseData> createOrder(@RequestBody @Valid OrderCreationForm form) {
@@ -85,5 +89,10 @@ public class OrderController {
         } catch (Exception e) {
             return ResponseEntity.ok(new BaseResponseData(500, "Error", e.getMessage()));
         }
+    }
+    @RequestMapping(value = "/email", method = RequestMethod.POST)
+    public String sendMail(@RequestBody EmailSender emailSender)throws MessagingException {
+        mailService.sendEmail(emailSender);
+        return "Email Sent Successfully.!";
     }
 }

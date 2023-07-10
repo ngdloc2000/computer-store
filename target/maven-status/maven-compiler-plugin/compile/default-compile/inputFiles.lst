@@ -25,6 +25,7 @@ C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\controller\EnumController.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\auth\response\AuthenticationResponse.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\enums\SelectOptionResponse.java
+C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\service\MailService.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\order\request\OrderCreationForm.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\entity\Order.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\entity\Role.java
@@ -66,6 +67,7 @@ C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\order\response\OrderDetail.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\cart\response\CartDetail.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\base\BaseResponseData.java
+C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\EmailSender.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\repository\cart\CustomCartRepositoryImpl.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\repository\product\CustomProductRepository.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\service\CategoryService.java
@@ -100,4 +102,5 @@ C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\dto\thongke\response\ThongKeSanPhamBanChayResponse.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\enums\ProductEnum.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\repository\client\ClientRepository.java
+C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\service\MailServiceImpl.java
 C:\Users\quann\IdeaProjects\computer-store\computer-store\src\main\java\com\cdtn\computerstore\service\UserService.java
